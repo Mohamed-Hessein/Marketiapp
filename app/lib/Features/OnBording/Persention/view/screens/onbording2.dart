@@ -3,6 +3,8 @@ import 'package:app/Features/OnBording/Persention/view/screens/onbording_odel.da
 import 'package:app/Features/OnBording/Persention/view/widgets/smooth_widget.dart';
 
 import 'package:app/core/theme/styles.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Onbording2 extends StatelessWidget {
   const Onbording2({
