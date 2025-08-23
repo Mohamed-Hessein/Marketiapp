@@ -6,9 +6,19 @@ import 'package:app/core/theme/colors.dart';
 import 'package:app/core/theme/styles.dart';
 
 class cardProduct extends StatelessWidget {
-  const cardProduct({super.key, required this.onTap});
+  const cardProduct({
+    super.key,
+    required this.onTap,
+    this.image,
+    this.realImage,
+    this.title,
+    required this.price,
+  });
   final Function() onTap;
-
+  final image;
+  final realImage;
+  final title;
+  final double price;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -17,7 +27,7 @@ class cardProduct extends StatelessWidget {
         children: [
           SizedBox(
             height: 184.h,
-            width: 160.w,
+            width: 180.w,
             child: Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
@@ -35,8 +45,8 @@ class cardProduct extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(5),
-                      child: Image.asset(
-                        ImageManager.roumdCard,
+                      child: Image.network(
+                        realImage,
                         height: 96.h,
                         width: 152.w,
 
@@ -44,9 +54,10 @@ class cardProduct extends StatelessWidget {
                       ),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'price',
+                          "$price",
                           style: AppTextSyles.textpopns12BlueforgotColor,
                         ),
                         SizedBox(width: 53),
@@ -65,10 +76,7 @@ class cardProduct extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 9),
                       child: Row(
                         children: [
-                          Text(
-                            'title',
-                            style: AppTextSyles.textpopns12BlueforgotColor,
-                          ),
+                          Text('$title', style: TextStyle(fontSize: 8)),
                         ],
                       ),
                     ),
@@ -100,13 +108,13 @@ class cardAddProduct extends StatelessWidget {
     required this.image,
     this.realImage,
     this.title,
-    this.price,
+    required this.price,
   });
   final Function() onTap;
   final image;
   final realImage;
   final title;
-  final price;
+  final double price;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -115,8 +123,8 @@ class cardAddProduct extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox(
-              height: 250.h,
-              width: 183.w,
+              height: 270.h,
+              width: 215.w,
               child: Card(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -126,50 +134,56 @@ class cardAddProduct extends StatelessWidget {
 
                 shadowColor: Color(0xFFB2CCFF),
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 50),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadiusGeometry.circular(5),
-                        child: Image.asset(
-                          realImage,
+                  padding: const EdgeInsets.only(bottom: 30, left: 15),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadiusGeometry.circular(5),
+                          child: Image.network(
+                            realImage,
 
-                          height: 96.h,
-                          width: 175.w,
+                            height: 96.h,
+                            width: 205.w,
 
-                          fit: BoxFit.fill,
+                            fit: BoxFit.fill,
+                          ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            price,
-                            style: AppTextSyles.textpopns12BlueforgotColor,
+                        SizedBox(height: 15),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "    $price",
+                                style: AppTextSyles.textpopns12BlueforgotColor,
+                              ),
+                              SizedBox(width: 60.w),
+                              SvgPicture.asset(
+                                ImageManager.starIcon,
+                                height: 20.h,
+                                width: 20.w,
+                              ),
+                              Text(
+                                '4.9',
+                                style: AppTextSyles.textpopns12BlueforgotColor,
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 60.w),
-                          SvgPicture.asset(
-                            ImageManager.starIcon,
-                            height: 20.h,
-                            width: 20.w,
+                        ),
+                        SizedBox(height: 5),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          child: Row(
+                            children: [
+                              Text(title, style: TextStyle(fontSize: 9.sp)),
+                            ],
                           ),
-                          Text(
-                            '4.9',
-                            style: AppTextSyles.textpopns12BlueforgotColor,
-                          ),
-                        ],
-                      ),
-
-                      Row(
-                        children: [
-                          Text(
-                            title,
-                            style: AppTextSyles.textpopns12BlueforgotColor,
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -181,8 +195,8 @@ class cardAddProduct extends StatelessWidget {
               child: SvgPicture.asset(image, height: 24.h, width: 24.w),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * .014,
-              left: MediaQuery.of(context).size.height * .037,
+              bottom: MediaQuery.of(context).size.height * .015,
+              left: MediaQuery.of(context).size.height * .050,
               child: SizedBox(
                 width: 124.w,
                 height: 38.h,

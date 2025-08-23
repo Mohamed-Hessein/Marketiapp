@@ -9,12 +9,15 @@ class Endpoints {
   static String getCAtgroyProduct =
       '/home/products/category/smartphones?skip=0&limit=5';
   static String gteBrands = '/home/products/brand/Essence?skip=0&limit=5';
+  static String getAllBrands = '/home/brands';
+  static String catgroyNames = '/home/categories';
   static String SignUp(id) {
     return "$baseurl/$id";
   }
 }
 
 class ApiKeys {
+  static String authorization = "Authorization";
   static String code = 'code';
   static String status = "status";
   static String ErrorMessage = "message";

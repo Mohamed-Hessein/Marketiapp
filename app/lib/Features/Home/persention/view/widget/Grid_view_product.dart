@@ -4,14 +4,18 @@ class GridViewProduct extends StatelessWidget {
   const GridViewProduct({
     super.key,
     this.hieght,
-    required this.widget,
+
     this.crossAxisCount,
-    this.itemCount,
+    required this.itemCount,
+    this.itemBuilder,
+    this.scrollDir,
   });
   final hieght;
-  final Widget widget;
+
   final crossAxisCount;
-  final itemCount;
+  final int itemCount;
+  final itemBuilder;
+  final scrollDir;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,7 +23,7 @@ class GridViewProduct extends StatelessWidget {
       child: SizedBox(
         height: hieght,
         child: GridView.builder(
-          scrollDirection: Axis.horizontal,
+          scrollDirection: scrollDir,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 10,
@@ -27,9 +31,7 @@ class GridViewProduct extends StatelessWidget {
             childAspectRatio: 1,
           ),
           itemCount: itemCount,
-          itemBuilder: (context, index) {
-            return widget;
-          },
+          itemBuilder: itemBuilder,
         ),
       ),
     );

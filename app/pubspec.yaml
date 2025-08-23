@@ -46,6 +46,10 @@ dependencies:
   dartz: ^0.10.1
   flutter_screenutil: ^5.9.3
   animated_bottom_navigation_bar: ^1.4.0
+  equatable: ^2.0.7
+  flutter_pagewise: ^2.0.4
+  pagify: ^0.1.0
+ 
 
 dev_dependencies:
   flutter_test:

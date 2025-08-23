@@ -1,3 +1,6 @@
+import 'package:app/Features/Home/data/brands_model.dart';
+import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
+import 'package:app/core/Router/appRouter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,65 +13,44 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class BrandsPageBody extends StatelessWidget {
-  const BrandsPageBody({super.key});
-
+  BrandsPageBody({super.key, this.brands});
+  ProductBrands? productBrands;
+  final Widget? brands;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductCubit, ProductState>(
-      builder: (context, state) {
-        if (state is ProductBrandsSuecss) {
-          return Padding(
-            padding: EdgeInsets.only(top: 14.h),
-            child: CustomScrollView(
-              scrollDirection: Axis.vertical,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Column(
+    final Widget bransds =
+        brands ?? ModalRoute.of(context)!.settings.arguments as Widget;
+    return Padding(
+      padding: EdgeInsets.only(top: 14.h),
+      child: CustomScrollView(
+        scrollDirection: Axis.vertical,
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                CustomSearchTextfield(
+                  assetImagesuf: ImageManager.filterIcon,
+                  assetImage: ImageManager.serachIcon,
+                  hintText: 'What are you looking for ?',
+                  wigeth: 35.w,
+                  height: 35.h,
+                ),
+                SizedBox(height: 16.h),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
                     children: [
-                      CustomSearchTextfield(
-                        assetImagesuf: ImageManager.filterIcon,
-                        assetImage: ImageManager.serachIcon,
-                        hintText: 'What are you looking for ?',
-                        wigeth: 35.w,
-                        height: 35.h,
-                      ),
-                      SizedBox(height: 16.h),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Brands',
-                              style: AppTextSyles.textpopns20color,
-                            ),
-                            SizedBox(height: 4.h),
-                          ],
-                        ),
-                      ),
+                      Text('Brands', style: AppTextSyles.textpopns20color),
+                      SizedBox(height: 4.h),
                     ],
                   ),
                 ),
-
-                GridProductView(
-                  mainAxisExtent: 130,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  widget: CatgoryWidget(
-                    images: ImageManager.allBrands,
-                    onTap: () {},
-                  ),
-                  crossAxisCount: 2,
-                  itemCount: 20,
-                ),
+                bransds,
               ],
             ),
-          );
-        } else if (state is ProductBrandsError) {
-          return Text(state.message);
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
+          ),
+        ],
+      ),
     );
   }
-}
+} ///////////////////////

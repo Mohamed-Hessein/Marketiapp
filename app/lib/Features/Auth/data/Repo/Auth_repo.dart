@@ -1,6 +1,8 @@
 import 'dart:async' show Future;
 import 'dart:core';
 
+import 'package:app/Features/Home/data/brands_models.dart';
+import 'package:app/Features/Home/data/catgory_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:app/Features/Auth/data/Model/signin_model.dart';
@@ -121,38 +123,71 @@ class AuthRepo {
       final response = await api.get(Endpoints.getproduct);
 
       final productModel = ProductList.fromJson(response);
-      print(response);
-      print(productModel);
+
       return Right(productModel);
     } on AppException catch (e) {
       return left(e.errModel);
     }
   }
 
-  Future<Either<String, List<ProductCatgory>>> getProductCatgory({
-    token,
-  }) async {
+  Future<Either<String, List<CategoriesModel>>> getProductCatgory() async {
     try {
-      final response = await api.get(Endpoints.getCAtgroyProduct);
+      final response = await api.get(Endpoints.catgroyNames);
 
-      final productModel = ProductListCatgory.fromJson(response);
-      final token = CacheHelper().getData(key: ApiKeys.token);
-      print(productModel.list.first.category);
-      return Right(productModel.list);
+      final productModel = CategoriesModel.fromJson(response);
+      List<CategoriesModel> catgorylist = [];
+      if (response['list'] != null) {
+        for (var catgroy in response['list']) {
+          catgorylist.add(CategoriesModel.fromJson(catgroy));
+        }
+      }
+      return Right(catgorylist);
     } on AppException catch (e) {
       return left(e.errModel.errMessage);
     }
   }
 
-  Future<Either<String, List<ProductBrands>>> getProductBrands({token}) async {
+  Future<Either<ErrorModel, List<BrandsModel>>> getProductBrands() async {
     try {
-      final response = await api.get(Endpoints.gteBrands);
+      final response = await api.get(Endpoints.getAllBrands);
+
+      final productModel = BrandsModel.fromJson(response);
+      List<BrandsModel> bramdList = [];
+      if (response['list'] != null) {
+        for (var brand in response['list']) {
+          bramdList.add(BrandsModel.fromJson(brand));
+        }
+      }
+      return Right(bramdList);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, ProductListBrands>> getBrands() async {
+    try {
+      final response = await api.get(Endpoints.getproduct);
 
       final productModel = ProductListBrands.fromJson(response);
-      print(productModel.list.first.category);
-      return Right(productModel.list);
+
+      return Right(productModel);
     } on AppException catch (e) {
-      return left(e.errModel.errMessage);
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, ProductList>> getAllProduct({
+    final index,
+    final limit,
+  }) async {
+    try {
+      final response = await api.get('/home/products?skip=$index&limit=$limit');
+
+      final productModel = ProductList.fromJson(response);
+
+      return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
     }
   }
 }

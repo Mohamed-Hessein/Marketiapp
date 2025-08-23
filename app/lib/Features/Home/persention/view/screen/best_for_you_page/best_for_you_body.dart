@@ -1,4 +1,7 @@
+import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:app/Features/Home/persention/view/widget/GridProductView.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
@@ -42,14 +45,40 @@ class BestForYouBody extends StatelessWidget {
             ),
           ),
 
-          GridProductView(
-            mainAxisExtent: 210,
-            crossAxisSpacing: 3,
-            mainAxisSpacing: 3,
-            widget: cardAddProduct(onTap: () {}, image: ImageManager.heartIcon),
-            crossAxisCount: 2,
-            itemCount: 20,
-          ),
+          // BlocConsumer<ProductCubit, ProductState>(
+          //   listener: (context, state) {
+          //     // TODO: implement listener
+          //   },
+          //   builder: (context, state) {
+          //     if (state is ProductBrandsSuecss) {
+          //       return GridProductView(
+          //         mainAxisExtent: 210,
+          //         itemBuilder: (context, index) {
+          //           final prodcutreal = state.product;
+          //           return Padding(
+          //             padding: const EdgeInsets.only(left: 6),
+          //             child: cardAddProduct(
+
+          //               onTap: () {},
+          //               image: ImageManager.heartIcon,
+          //             ),
+          //           );
+          //         },
+
+          //         crossAxisSpacing: 3,
+          //         mainAxisSpacing: 3,
+          //         crossAxisCount: 2,
+          //         itemCount: state.product.list.length,
+          //       );
+          //     } else if (state is ProductLoading) {
+          //       return Center(child: CircularProgressIndicator());
+          //     } else if (state is ProductError) {
+          //       return Text(state.message.errMessage);
+          //     } else {
+          //       return SizedBox();
+          //     }
+          //   },
+          // ),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:app/Features/Home/persention/view/widget/Grid_ctagory_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,8 +7,8 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class CatgoryPageScreen extends StatelessWidget {
-  const CatgoryPageScreen({super.key});
-
+  const CatgoryPageScreen({super.key, this.catgroy});
+  final Widget? catgroy;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,7 @@ class CatgoryPageScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: CatgoryPageScreenBody(),
+      body: CatgoryPageScreenBody(catgroya: catgroy),
     );
   }
 }

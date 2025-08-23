@@ -53,7 +53,7 @@ class DioConsumer extends ApiConsumer {
         data: data,
         queryParameters: queryParameters,
       );
-      print(response.data);
+
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);

@@ -4,30 +4,26 @@ class GridProductView extends StatelessWidget {
   const GridProductView({
     super.key,
 
-    required this.widget,
     this.crossAxisCount,
     this.itemCount,
     required this.crossAxisSpacing,
     required this.mainAxisSpacing,
     required this.mainAxisExtent,
+    this.itemBuilder,
   });
 
-  final Widget widget;
   final crossAxisCount;
   final itemCount;
   final double crossAxisSpacing;
   final double mainAxisSpacing;
+  final itemBuilder;
 
   final double mainAxisExtent;
+
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
-      delegate: SliverChildBuilderDelegate(childCount: itemCount, (
-        context,
-        index,
-      ) {
-        return widget;
-      }),
+      delegate: SliverChildBuilderDelegate(childCount: itemCount, itemBuilder),
 
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,

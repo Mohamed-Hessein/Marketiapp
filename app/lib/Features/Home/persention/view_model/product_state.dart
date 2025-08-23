@@ -1,5 +1,7 @@
 import 'package:app/Features/Home/data/all_product_model.dart';
 import 'package:app/Features/Home/data/brands_model.dart';
+import 'package:app/Features/Home/data/brands_models.dart';
+import 'package:app/Features/Home/data/catgory_model.dart';
 import 'package:app/Features/Home/data/product_catgory_model.dart';
 import 'package:app/core/Errors/ErrorModel.dart';
 
@@ -21,34 +23,70 @@ class ProductError extends ProductState {
 
 class Productinital extends ProductState {}
 
-class ProductCatgroyLoading extends ProductState {}
+class CatgoryState {}
 
-class ProductCatgroySuecss extends ProductState {
-  final List<ProductCatgory> product;
+class ProductCatgroyLoading extends CatgoryState {}
+
+class ProductCatgroySuecss extends CatgoryState {
+  final List<CategoriesModel> product;
 
   ProductCatgroySuecss({required this.product});
 }
 
-class ProductCatgroyError extends ProductState {
+class ProductCatgroyError extends CatgoryState {
   final String message;
 
   ProductCatgroyError({required this.message});
 }
 
-class ProductCatgroyinital extends ProductState {}
+class ProductCatgroyinital extends CatgoryState {}
 
-class ProductBrandsLoading extends ProductState {}
+class BrandsState {}
 
-class ProductBrandsSuecss extends ProductState {
-  final List<ProductBrands> product;
+class ProductBrandsLoading extends BrandsState {}
+
+class ProductBrandsSuecss extends BrandsState {
+  final List<BrandsModel> product;
 
   ProductBrandsSuecss({required this.product});
 }
 
-class ProductBrandsError extends ProductState {
-  final String message;
+class ProductBrandsError extends BrandsState {
+  final ErrorModel message;
 
   ProductBrandsError({required this.message});
 }
 
-class ProductBrandsinital extends ProductState {}
+class ProductBrandsinital extends BrandsState {}
+
+class ProductBrandLoading extends ProductState {}
+
+class ProductBrandSuecss extends ProductState {
+  final ProductListBrands product;
+
+  ProductBrandSuecss({required this.product});
+}
+
+class ProductBrandError extends ProductState {
+  final ErrorModel message;
+
+  ProductBrandError({required this.message});
+}
+
+class ProductBrandinital extends ProductState {}
+
+class ProductAllLoading extends ProductState {}
+
+class ProductAllSuecss extends ProductState {
+  final ProductList product;
+
+  ProductAllSuecss({required this.product});
+}
+
+class ProductAllError extends ProductState {
+  final ErrorModel message;
+
+  ProductAllError({required this.message});
+}
+
+class ProductAllinital extends ProductState {}

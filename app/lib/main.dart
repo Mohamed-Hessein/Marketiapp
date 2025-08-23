@@ -1,3 +1,4 @@
+import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => ProductCubit(
                 Productinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
+                AuthRepo(DioConsumer(dio: Dio()))..getProduct(),
               ),
             ),
             BlocProvider(
@@ -50,15 +51,15 @@ class MyApp extends StatelessWidget {
               ),
             ),
             BlocProvider(
-              create: (context) => ProductCubit(
+              create: (context) => BrandsCubit(
                 ProductBrandsinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
+                AuthRepo(DioConsumer(dio: Dio()))..getProductBrands(),
               ),
             ),
             BlocProvider(
-              create: (context) => ProductCubit(
+              create: (context) => catgoryCubit(
                 ProductCatgroyinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
+                AuthRepo(DioConsumer(dio: Dio()))..getProductCatgory(),
               ),
             ),
             BlocProvider(
@@ -76,6 +77,12 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => Signupcubit(
                 ResetCodeinitial(),
+                AuthRepo(DioConsumer(dio: Dio())),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => ProductCubit(
+                ProductAllinital(),
                 AuthRepo(DioConsumer(dio: Dio())),
               ),
             ),

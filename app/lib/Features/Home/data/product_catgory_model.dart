@@ -17,14 +17,14 @@ class ProductListCatgory {
 }
 
 class ProductCatgory {
-  final int id;
-  final String title;
-  final String description;
-  final String category;
-  final double price;
-  final double discountPercentage;
-  final double rating;
-  final int stock;
+  final dynamic id;
+  final dynamic title;
+  final dynamic description;
+  final dynamic category;
+  final num price;
+  final dynamic discountPercentage;
+  final dynamic rating;
+  final dynamic stock;
   final List<String> tags;
   final String brand;
   final String sku;
@@ -71,7 +71,7 @@ class ProductCatgory {
       title: json["title"],
       description: json["description"],
       category: json["category"],
-      price: (json["price"] as num).toDouble(),
+      price: (json["price"]).toDouble(),
       discountPercentage: (json["discountPercentage"] as num).toDouble(),
       rating: (json["rating"] as num).toDouble(),
       stock: json["stock"],

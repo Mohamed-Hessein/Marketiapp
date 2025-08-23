@@ -24,25 +24,39 @@ class ProductCubit extends Cubit<ProductState> {
     );
   }
 
+  getBrandProduct() async {
+    emit(ProductBrandLoading());
+    final response = await authRepo.getBrands();
+
+    response.fold(
+      ((errorMessga) => emit(ProductBrandError(message: errorMessga))),
+      (suecss) => emit(ProductBrandSuecss(product: suecss)),
+    );
+  }
+
+  getAllProduct(int index, int limit) async {
+    emit(ProductAllLoading());
+    final skip = index * limit;
+    final response = await authRepo.getAllProduct(limit: limit, index: skip);
+
+    response.fold(
+      ((errorMessga) => emit(ProductAllError(message: errorMessga))),
+      (suecss) => emit(ProductAllSuecss(product: suecss)),
+    );
+  }
+}
+
+class catgoryCubit extends Cubit<CatgoryState> {
+  catgoryCubit(super.initialState, this.authRepo);
+
+  final AuthRepo authRepo;
   getProductCatgoru() async {
     emit(ProductCatgroyLoading());
-    final response = await authRepo.getProductCatgory(
-      token: CacheHelper().getData(key: ApiKeys.token),
-    );
+    final response = await authRepo.getProductCatgory();
 
     response.fold(
       ((errorMessga) => emit(ProductCatgroyError(message: errorMessga))),
       (suecss) => emit(ProductCatgroySuecss(product: suecss)),
-    );
-  }
-
-  getProductBrands() async {
-    emit(ProductBrandsLoading());
-    final response = await authRepo.getProductBrands();
-
-    response.fold(
-      ((errorMessga) => emit(ProductBrandsError(message: errorMessga))),
-      (suecss) => emit(ProductBrandsSuecss(product: suecss)),
     );
   }
 }
