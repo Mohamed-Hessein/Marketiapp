@@ -1,4 +1,12 @@
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/brand_product_state.dart';
+import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/catgroy_product_state.dart';
+import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/details_state.dart';
+import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_state.dart';
+import 'package:app/Features/Home/persention/view_model/search_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,8 +49,30 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => ProductCubit(
                 Productinital(),
-                AuthRepo(DioConsumer(dio: Dio()))..getProduct(),
-              ),
+                AuthRepo(DioConsumer(dio: Dio())),
+              )..getProduct(),
+            ),
+            BlocProvider(
+              create: (context) => CatgroyProductCubit(
+                Catgroylinital(),
+                AuthRepo(DioConsumer(dio: Dio())),
+              )..getCatgroyPRoduct(),
+            ),
+            BlocProvider(
+              create: (context) => BrandProdctCubit(
+                BrandProductlinital(),
+                AuthRepo(DioConsumer(dio: Dio())),
+              )..getBrandPRoduct(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  FavoriteCubit(AuthRepo(DioConsumer(dio: Dio())))
+                    ..AddFAvoriete(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  DeleteFavoriteCubit(AuthRepo(DioConsumer(dio: Dio())))
+                    ..DeleteFAvoriete(),
             ),
             BlocProvider(
               create: (context) => Signupcubit(
@@ -51,16 +81,28 @@ class MyApp extends StatelessWidget {
               ),
             ),
             BlocProvider(
+              create: (context) => getFavoriteCubit(
+                Favoritelinital(),
+                AuthRepo(DioConsumer(dio: Dio())),
+              )..getfav(),
+            ),
+            BlocProvider(
               create: (context) => BrandsCubit(
                 ProductBrandsinital(),
-                AuthRepo(DioConsumer(dio: Dio()))..getProductBrands(),
-              ),
+                AuthRepo(DioConsumer(dio: Dio())),
+              )..getProductBrands(),
             ),
             BlocProvider(
               create: (context) => catgoryCubit(
                 ProductCatgroyinital(),
-                AuthRepo(DioConsumer(dio: Dio()))..getProductCatgory(),
-              ),
+                AuthRepo(DioConsumer(dio: Dio())),
+              )..getProductCatgoru(),
+            ),
+            BlocProvider(
+              create: (context) => DetailsCubit(
+                Detailslinital(),
+                AuthRepo(DioConsumer(dio: Dio())),
+              )..getDatils(),
             ),
             BlocProvider(
               create: (context) => Signupcubit(
@@ -77,12 +119,6 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => Signupcubit(
                 ResetCodeinitial(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => ProductCubit(
-                ProductAllinital(),
                 AuthRepo(DioConsumer(dio: Dio())),
               ),
             ),

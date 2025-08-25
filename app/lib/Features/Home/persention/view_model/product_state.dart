@@ -3,6 +3,7 @@ import 'package:app/Features/Home/data/brands_model.dart';
 import 'package:app/Features/Home/data/brands_models.dart';
 import 'package:app/Features/Home/data/catgory_model.dart';
 import 'package:app/Features/Home/data/product_catgory_model.dart';
+import 'package:app/Features/Home/data/serachModel.dart';
 import 'package:app/core/Errors/ErrorModel.dart';
 
 class ProductState {}
@@ -90,3 +91,21 @@ class ProductAllError extends ProductState {
 }
 
 class ProductAllinital extends ProductState {}
+
+class SearchState {}
+
+class SaerchLoading extends SearchState {}
+
+class SaerchSuecss extends SearchState {
+  final SearchModel product;
+
+  SaerchSuecss({required this.product});
+}
+
+class SaerchError extends SearchState {
+  final ErrorModel message;
+
+  SaerchError({required this.message});
+}
+
+class Searchlinital extends SearchState {}

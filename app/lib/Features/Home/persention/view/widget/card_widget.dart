@@ -102,7 +102,7 @@ class cardProduct extends StatelessWidget {
 }
 
 class cardAddProduct extends StatelessWidget {
-  const cardAddProduct({
+  cardAddProduct({
     super.key,
     required this.onTap,
     required this.image,
@@ -112,9 +112,10 @@ class cardAddProduct extends StatelessWidget {
   });
   final Function() onTap;
   final image;
-  final realImage;
+  final dynamic realImage;
   final title;
-  final double price;
+  final dynamic price;
+  bool isCliked = true;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -151,36 +152,38 @@ class cardAddProduct extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 15),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "    $price",
-                                style: AppTextSyles.textpopns12BlueforgotColor,
-                              ),
-                              SizedBox(width: 60.w),
-                              SvgPicture.asset(
-                                ImageManager.starIcon,
-                                height: 20.h,
-                                width: 20.w,
-                              ),
-                              Text(
-                                '4.9',
-                                style: AppTextSyles.textpopns12BlueforgotColor,
-                              ),
-                            ],
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "$price",
+                              style: AppTextSyles.textpopns12BlueforgotColor,
+                            ),
+                            SizedBox(width: 60.w),
+                            SvgPicture.asset(
+                              ImageManager.starIcon,
+                              height: 20.h,
+                              width: 20.w,
+                            ),
+                            Text(
+                              '4.9',
+                              style: AppTextSyles.textpopns12BlueforgotColor,
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 5),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5, right: 5),
-                          child: Row(
-                            children: [
-                              Text(title, style: TextStyle(fontSize: 9.sp)),
-                            ],
-                          ),
+                        SizedBox(height: 10.h),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                softWrap: true,
+                                maxLines: 1,
+                                overflow: TextOverflow.fade,
+                                title,
+                                style: TextStyle(fontSize: 8.sp),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -192,7 +195,7 @@ class cardAddProduct extends StatelessWidget {
             Positioned(
               right: MediaQuery.of(context).size.height * .028,
               top: MediaQuery.of(context).size.height * .0165,
-              child: SvgPicture.asset(image, height: 24.h, width: 24.w),
+              child: image,
             ),
             Positioned(
               bottom: MediaQuery.of(context).size.height * .015,

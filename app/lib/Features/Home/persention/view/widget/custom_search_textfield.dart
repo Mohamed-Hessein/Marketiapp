@@ -1,3 +1,4 @@
+import 'package:app/core/Router/appRouter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,7 +6,7 @@ import 'package:app/core/theme/colors.dart';
 import 'package:app/core/theme/styles.dart';
 
 class CustomSearchTextfield extends StatelessWidget {
-  const CustomSearchTextfield({
+  CustomSearchTextfield({
     super.key,
 
     required this.assetImage,
@@ -14,19 +15,25 @@ class CustomSearchTextfield extends StatelessWidget {
     required this.height,
     this.controler,
     required this.assetImagesuf,
+    this.onChange,
+    this.onSubmitted,
+    this.onTap,
   });
   final String assetImagesuf;
   final String assetImage;
   final String hintText;
-
+  Function(String)? onSubmitted;
   final double wigeth;
   final double height;
   final dynamic controler;
+  final onTap;
+  final onChange;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22),
-      child: TextFormField(
+      child: TextField(
+        onSubmitted: onSubmitted,
         controller: controler,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 18),
@@ -47,10 +54,13 @@ class CustomSearchTextfield extends StatelessWidget {
             child: SizedBox(
               height: 44.h,
               width: 44.w,
-              child: SvgPicture.asset(
-                assetImage,
-                height: height,
-                width: wigeth,
+              child: GestureDetector(
+                onTap: onTap,
+                child: SvgPicture.asset(
+                  assetImage,
+                  height: height,
+                  width: wigeth,
+                ),
               ),
             ),
           ),

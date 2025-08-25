@@ -1,5 +1,6 @@
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Home/persention/view/widget/list_view_product_card.dart';
+import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:app/core/Router/appRouter.dart';
@@ -7,21 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PopulerProductWidget extends StatefulWidget {
+class PopulerProductWidget extends StatelessWidget {
   const PopulerProductWidget({super.key});
 
   @override
-  State<PopulerProductWidget> createState() => _PopulerProductWidgetState();
-}
-
-class _PopulerProductWidgetState extends State<PopulerProductWidget> {
-  @override
-  void initState() {
-    context.read<ProductCubit>().getProduct();
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductCubit, ProductState>(
@@ -38,7 +28,7 @@ class _PopulerProductWidgetState extends State<PopulerProductWidget> {
                 title: products.title,
                 realImage: products.images[0],
                 onTap: () {
-                  Navigator.pushNamed(context, Approuter.product);
+                  Navigator.pushNamed(context, Approuter.details);
                 },
               );
             },

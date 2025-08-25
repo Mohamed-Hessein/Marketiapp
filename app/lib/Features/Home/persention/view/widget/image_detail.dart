@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
 
 class ImageDetail extends StatelessWidget {
-  const ImageDetail({super.key});
-
+  const ImageDetail({super.key, this.itemBuilder});
+  final itemBuilder;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,13 +14,7 @@ class ImageDetail extends StatelessWidget {
         height: 56.h,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Image.asset(
-              ImageManager.pampures,
-              height: 56.h,
-              width: 56.w,
-            );
-          },
+          itemBuilder: itemBuilder,
           itemCount: 4,
         ),
       ),

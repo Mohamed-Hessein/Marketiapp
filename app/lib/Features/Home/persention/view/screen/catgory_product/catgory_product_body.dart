@@ -1,29 +1,27 @@
-import 'package:app/Features/Home/data/all_product_model.dart';
-import 'package:app/Features/Home/persention/view/widget/add_catgory_card.dart';
-import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_state.dart';
-import 'package:app/core/Router/appRouter.dart';
-import 'package:dartz/dartz.dart';
-import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/product_state.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:app/Features/Home/persention/view/widget/GridProductView.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Home/persention/view/widget/custom_search_textfield.dart';
-import 'package:app/core/constant/image_manager/image_manager.dart';
-import 'package:app/core/theme/styles.dart';
-import 'package:flutter_pagewise/flutter_pagewise.dart';
+import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/catgroy_product_state.dart';
+import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/details_state.dart';
+import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:app/Features/Home/persention/view/widget/image_detail.dart';
+import 'package:app/Features/Home/persention/view/widget/rate_widget.dart';
+import 'package:app/Features/Home/persention/view/widget/size_widget.dart';
+import 'package:app/core/constant/image_manager/image_manager.dart';
+import 'package:app/core/theme/colors.dart';
+import 'package:app/core/theme/styles.dart';
 
-class ProductPageBody extends StatelessWidget {
-  ProductPageBody({super.key});
+class CatgoryProductBody extends StatelessWidget {
+  const CatgoryProductBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final id = context.read<CatgroyProductCubit>();
     return Padding(
       padding: EdgeInsets.only(top: 14.h),
       child: CustomScrollView(
@@ -52,15 +50,12 @@ class ProductPageBody extends StatelessWidget {
             ),
           ),
 
-          BlocConsumer<ProductCubit, ProductState>(
+          BlocConsumer<CatgroyProductCubit, catgroyState>(
             listener: (context, state) {
               // TODO: implement listener
             },
             builder: (context, state) {
-              final cubit = context.read<FavoriteCubit>();
-              final id;
-              final cont = context.read<DetailsCubit>();
-              if (state is ProductAllSuecss) {
+              if (state is CatgroySuecss) {
                 return NotificationListener<ScrollNotification>(
                   onNotification: (ScrollNotification scrollInfo) {
                     if (scrollInfo.metrics.pixels ==
@@ -76,37 +71,12 @@ class ProductPageBody extends StatelessWidget {
                       childCount: state.product.list.length,
                       (context, index) {
                         final product = state.product.list[index];
-
                         return cardAddProduct(
-                          onTap: () {
-                            // cont.getDatils(id: product.id);
-                            // Navigator.pushNamed(context, Approuter.details);
-                          },
+                          onTap: () {},
                           title: product.title,
                           realImage: product.images[0],
                           price: product.price,
-                          image: BlocConsumer<FavoriteCubit, Set<int>>(
-                            listener: (context, state) {
-                              // TODO: implement listener
-                            },
-                            builder: (context, state) {
-                              final isFAv = state.contains(product.id);
-
-                              return GestureDetector(
-                                onTap: () {
-                                  cubit.AddFAvoriete(name: product.id);
-                                },
-                                child: SvgPicture.asset(
-                                  isFAv
-                                      ? ImageManager.fillHeart
-                                      : ImageManager.heartIcon,
-                                  height: 24.h,
-
-                                  width: 24.w,
-                                ),
-                              );
-                            },
-                          ),
+                          image: ImageManager.heartIcon,
                         );
                       },
                     ),
@@ -120,11 +90,11 @@ class ProductPageBody extends StatelessWidget {
                     ),
                   ),
                 );
-              } else if (state is ProductAllLoading) {
+              } else if (state is CatgroyLoading) {
                 return SliverToBoxAdapter(
                   child: Center(child: CircularProgressIndicator()),
                 );
-              } else if (state is ProductAllError) {
+              } else if (state is CatgroyError) {
                 return SliverToBoxAdapter(
                   child: Text(state.message.errMessage),
                 );

@@ -34,19 +34,28 @@ class HomePageBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            CustomSearchTextfield(
-              assetImagesuf: ImageManager.filterIcon,
-              assetImage: ImageManager.serachIcon,
-              hintText: 'What are you looking for ?',
-              wigeth: 35.w,
-              height: 35.h,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Approuter.search);
+              },
+              child: AbsorbPointer(
+                child: CustomSearchTextfield(
+                  assetImagesuf: ImageManager.filterIcon,
+                  assetImage: ImageManager.serachIcon,
+                  hintText: 'What are you looking for ?',
+                  wigeth: 35.w,
+                  height: 35.h,
+                ),
+              ),
             ),
             SizedBox(height: 16.h),
             Image.asset(ImageManager.offerImage, height: 120.h, width: 347.w),
             SizedBox(height: 14.h),
             RowViewAll(
               text: 'Populer product',
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, Approuter.product);
+              },
               text2: 'View all',
             ),
             SizedBox(height: 15),
@@ -99,9 +108,10 @@ class HomePageBody extends StatelessWidget {
 
             CardOfBrandsHomeview(
               colum: 1,
-              hieght: 150.h,
+              hieght: 180.h,
               scrollDirction: Axis.horizontal,
             ),
+
             RowViewAll(
               text: 'Best For You',
               onTap: () {

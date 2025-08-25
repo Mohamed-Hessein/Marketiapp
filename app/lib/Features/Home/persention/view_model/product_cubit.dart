@@ -1,3 +1,6 @@
+import 'package:app/Features/Home/persention/view_model/details_state.dart';
+import 'package:app/Features/Home/persention/view_model/product_cubit.dart'
+    as authRepo;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/Features/Auth/data/Repo/Auth_repo.dart';
 import 'package:app/Features/Home/data/all_product_model.dart';
@@ -14,9 +17,9 @@ class ProductCubit extends Cubit<ProductState> {
   final AuthRepo authRepo;
   ProductList? productList;
   ProductListCatgory? productListCatgory;
-  getProduct() async {
+  getProduct({id}) async {
     emit(ProductLoading());
-    final response = await authRepo.getProduct();
+    final response = await authRepo.getProduct(id);
 
     response.fold(
       ((errorMessga) => emit(ProductError(message: errorMessga))),
@@ -34,14 +37,34 @@ class ProductCubit extends Cubit<ProductState> {
     );
   }
 
-  getAllProduct(int index, int limit) async {
-    emit(ProductAllLoading());
-    final skip = index * limit;
-    final response = await authRepo.getAllProduct(limit: limit, index: skip);
+  int limit = 10;
+  int skip = 0;
+  bool hasMore = true;
+  List<Product> productLi = [];
+  getAllProduct({bool isLoadMore = false}) async {
+    if (!hasMore && isLoadMore) return;
+    if (!isLoadMore) {
+      skip = 0;
+      hasMore = true;
+      productLi.clear();
+      emit(ProductAllLoading());
+    }
+
+    final response = await authRepo.getAllProduct(limit: limit, skip: skip);
 
     response.fold(
       ((errorMessga) => emit(ProductAllError(message: errorMessga))),
-      (suecss) => emit(ProductAllSuecss(product: suecss)),
+      (suecss) {
+        if (suecss.list.isEmpty) {
+          hasMore = false;
+        } else {
+          productLi.addAll(suecss.list);
+          skip += limit;
+        }
+        emit(
+          ProductAllSuecss(product: ProductList(list: List.from(productLi))),
+        );
+      },
     );
   }
 }
@@ -50,9 +73,9 @@ class catgoryCubit extends Cubit<CatgoryState> {
   catgoryCubit(super.initialState, this.authRepo);
 
   final AuthRepo authRepo;
-  getProductCatgoru() async {
+  getProductCatgoru({name}) async {
     emit(ProductCatgroyLoading());
-    final response = await authRepo.getProductCatgory();
+    final response = await authRepo.getProductCatgory(id: name);
 
     response.fold(
       ((errorMessga) => emit(ProductCatgroyError(message: errorMessga))),

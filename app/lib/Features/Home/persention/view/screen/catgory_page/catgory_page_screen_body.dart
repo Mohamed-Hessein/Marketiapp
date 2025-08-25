@@ -44,7 +44,12 @@ class CatgoryPageScreenBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                catgroy,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Approuter.catgroyProduct);
+                  },
+                  child: catgroy,
+                ),
               ],
             ),
           ),

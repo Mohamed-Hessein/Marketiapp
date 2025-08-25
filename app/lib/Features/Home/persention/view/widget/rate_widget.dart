@@ -5,8 +5,8 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class RateWidget extends StatelessWidget {
-  const RateWidget({super.key});
-
+  const RateWidget({super.key, this.rate});
+  final rate;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,7 +28,7 @@ class RateWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 110.w),
+          SizedBox(width: 100.w),
           SvgPicture.asset(ImageManager.vectorStar, height: 15.h, width: 15.w),
           SvgPicture.asset(ImageManager.vectorStar, height: 15.h, width: 15.w),
           SvgPicture.asset(ImageManager.vectorStar, height: 15.h, width: 15.w),
@@ -36,7 +36,12 @@ class RateWidget extends StatelessWidget {
 
           SvgPicture.asset(ImageManager.vectorStar, height: 15.h, width: 15.w),
           SizedBox(width: 5.w),
-          Text('(4.0)', style: AppTextSyles.textpopns12BlueforgotColor),
+          Flexible(
+            child: Text(
+              '($rate)',
+              style: AppTextSyles.textpopns12BlueforgotColor,
+            ),
+          ),
         ],
       ),
     );

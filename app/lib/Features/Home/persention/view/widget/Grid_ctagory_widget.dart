@@ -1,7 +1,9 @@
 import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
 import 'package:app/Features/Home/persention/view/widget/catogry_card.dart';
+import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
+import 'package:app/core/Router/appRouter.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,12 +32,19 @@ class _GridCtagoryWidgetState extends State<GridCtagoryWidget> {
         // TODO: implement listener
       },
       builder: (context, state) {
+        final cubit = context.read<CatgroyProductCubit>();
         if (state is ProductCatgroySuecss) {
           return GridViewProduct(
             itemBuilder: (context, index) {
               final catgroy = state.product[index];
               final image = catgroy.image;
-              return CatgoryWidget(colum: Image.network(image!), onTap: () {});
+              return CatgoryWidget(
+                colum: Image.network(image!),
+                onTap: () {
+                  cubit.getCatgroyPRoduct(name: catgroy.name);
+                  Navigator.pushNamed(context, Approuter.catgroyProduct);
+                },
+              );
             },
             hieght: widget.height,
             scrollDir: widget.scrollDI,

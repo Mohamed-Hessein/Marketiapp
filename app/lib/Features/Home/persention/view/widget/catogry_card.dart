@@ -57,3 +57,42 @@ class CatgoryCardWidget extends StatelessWidget {
     );
   }
 }
+
+class CatgoryBrandsWidget extends StatelessWidget {
+  const CatgoryBrandsWidget({
+    super.key,
+    required this.onTap,
+    this.limit,
+    this.colum,
+    this.title,
+  });
+  final colum;
+  final title;
+  final limit;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 118.h,
+            width: 164.w,
+            child: Card(
+              color: Colors.white,
+              borderOnForeground: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(15),
+                side: BorderSide(color: Constants.Textfeildborder),
+              ),
+              elevation: 0,
+              child: Center(child: Text("$colum")),
+            ),
+          ),
+          Text("$title"),
+        ],
+      ),
+    );
+  }
+}

@@ -1,8 +1,13 @@
 import 'dart:async' show Future;
 import 'dart:core';
 
+import 'package:app/Features/Home/data/brand_product_model.dart';
 import 'package:app/Features/Home/data/brands_models.dart';
 import 'package:app/Features/Home/data/catgory_model.dart';
+import 'package:app/Features/Home/data/catgroy_product_model.dart';
+import 'package:app/Features/Home/data/dateils_model.dart';
+import 'package:app/Features/Home/data/get_favprite_model.dart';
+import 'package:app/Features/Home/data/serachModel.dart';
 import 'package:dartz/dartz.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:app/Features/Auth/data/Model/signin_model.dart';
@@ -118,23 +123,24 @@ class AuthRepo {
     }
   }
 
-  Future<Either<ErrorModel, ProductList>> getProduct() async {
+  Future<Either<ErrorModel, ProductList>> getProduct(id) async {
     try {
       final response = await api.get(Endpoints.getproduct);
 
       final productModel = ProductList.fromJson(response);
-
+      id = productModel.list.first.id;
       return Right(productModel);
     } on AppException catch (e) {
       return left(e.errModel);
     }
   }
 
-  Future<Either<String, List<CategoriesModel>>> getProductCatgory() async {
+  Future<Either<String, List<CategoriesModel>>> getProductCatgory({id}) async {
     try {
       final response = await api.get(Endpoints.catgroyNames);
 
       final productModel = CategoriesModel.fromJson(response);
+      id = productModel.name;
       List<CategoriesModel> catgorylist = [];
       if (response['list'] != null) {
         for (var catgroy in response['list']) {
@@ -177,15 +183,129 @@ class AuthRepo {
   }
 
   Future<Either<ErrorModel, ProductList>> getAllProduct({
-    final index,
-    final limit,
+    required final skip,
+    required final limit,
   }) async {
     try {
-      final response = await api.get('/home/products?skip=$index&limit=$limit');
+      final response = await api.get(
+        Endpoints.getALLproduct,
+        queryParameters: {ApiKeys.limit: limit, ApiKeys.skip: skip},
+      );
 
       final productModel = ProductList.fromJson(response);
 
       return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, SearchModel>> SearchPost({
+    search,
+    skip,
+    limit,
+  }) async {
+    try {
+      final response = await api.post(
+        Endpoints.search,
+        data: {
+          ApiKeys.serach: search,
+          ApiKeys.limit: limit,
+          ApiKeys.skip: skip,
+        },
+      );
+      print(' serach res$response');
+      final productModel = SearchModel.fromJson(response);
+
+      return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, ProductDetails>> detialsProduct({id}) async {
+    try {
+      final response = await api.get(Endpoints.Details(id));
+      print(' detilas res$response');
+      final productModel = ProductDetails.fromJson(response);
+
+      return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, ProductListResponse>> CatgroyProduct({
+    required final skip,
+    required final limit,
+    name,
+  }) async {
+    try {
+      final response = await api.get(
+        Endpoints.getNamed(name),
+        queryParameters: {ApiKeys.limit: limit, ApiKeys.skip: skip},
+      );
+
+      final productModel = ProductListResponse.fromJson(response);
+
+      return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, BrandProductModel>> BrandProduct({
+    required final skip,
+    required final limit,
+    name,
+  }) async {
+    try {
+      final response = await api.get(
+        Endpoints.getNamedBrand(name),
+        queryParameters: {ApiKeys.limit: limit, ApiKeys.skip: skip},
+      );
+
+      final productModel = BrandProductModel.fromJson(response);
+
+      return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, Signupmodel>> favoritePost({favid}) async {
+    try {
+      final response = await api.post(
+        Endpoints.favPost,
+        data: {ApiKeys.favProductId: favid},
+      );
+      final favPost = Signupmodel.fromJson(response);
+      return Right(favPost);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, FavProductListResponse>> getFavorite({name}) async {
+    try {
+      final response = await api.get(Endpoints.getfav);
+
+      final productModel = FavProductListResponse.fromJson(response);
+
+      return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, Signupmodel>> deletfavorite({favid}) async {
+    try {
+      final response = await api.delete(
+        Endpoints.deletefav,
+        data: {ApiKeys.favProductId: favid},
+      );
+      final favPost = Signupmodel.fromJson(response);
+      return Right(favPost);
     } on AppException catch (e) {
       return left(e.errModel);
     }

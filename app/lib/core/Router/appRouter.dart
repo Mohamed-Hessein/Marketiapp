@@ -1,3 +1,15 @@
+import 'package:app/Features/Auth/data/Repo/Auth_repo.dart';
+import 'package:app/Features/Home/persention/view/screen/brand_product/brand_product.dart';
+import 'package:app/Features/Home/persention/view/screen/catgory_product/catgory_product.dart';
+import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/catgroy_product_state.dart';
+import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/details_state.dart';
+import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/product_state.dart';
+import 'package:app/Features/Home/persention/view_model/search_cubit.dart';
+import 'package:app/core/network/Dio_consumer.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:app/Features/Auth/Persention/view/Screen/login/login.dart';
 import 'package:app/Features/Auth/Persention/view/Screen/sign_up/sign_up.dart';
@@ -18,6 +30,7 @@ import 'package:app/Features/Home/persention/view/widget/navgiate_bar_widget.dar
 import 'package:app/Features/OnBording/Persention/view/screens/onbordingpage.dart';
 import 'package:app/Features/Splash/Persention/view/Screens/Splash.dart';
 import 'package:app/Features/Splash/Persention/view/Screens/splach_body.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Approuter {
   static const logIn = '/login';
@@ -33,13 +46,17 @@ class Approuter {
   static const homePage = '/home';
   static const catogroy = '/catogry';
   static const product = '/product';
-
+  static const search = '/search';
   static const bestForYou = '/bestforyoy';
   static const emptyCart = '/emptyCart';
   static const catgorPage = '/catgorPage';
   static const brandsPage = '/brandsPage';
   static const addCatgoryPage = '/addCatgoryPage';
+  static const details = '/details';
+  static const catgroyProduct = '/catgroyProduct';
   static const splash = '/spalsh';
+
+  static const brandProduct = '/brandProduct';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
@@ -70,8 +87,19 @@ class Approuter {
         return MaterialPageRoute(builder: (_) => const NavgiateBarWidget());
       case catogroy:
         return MaterialPageRoute(builder: (_) => const CatgoryPage());
+      case catgroyProduct:
+        return MaterialPageRoute(builder: (_) => CatgoryProduct());
       case product:
-        return MaterialPageRoute(builder: (_) => const ProductPage());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => ProductCubit(
+              ProductAllinital(),
+              AuthRepo(DioConsumer(dio: Dio())),
+            )..getAllProduct(),
+
+            child: const ProductPage(),
+          ),
+        );
       case emptyCart:
         return MaterialPageRoute(builder: (_) => const EmptyCart());
       case catgorPage:
@@ -82,6 +110,22 @@ class Approuter {
         return MaterialPageRoute(builder: (_) => const BestForYou());
       case addCatgoryPage:
         return MaterialPageRoute(builder: (_) => const ProductDetailsPage());
+      case details:
+        return MaterialPageRoute(builder: (_) => ProductDetailsPage());
+      case brandProduct:
+        return MaterialPageRoute(builder: (_) => BrandProduct());
+
+      case search:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => SearchCubit(
+              Searchlinital(),
+              AuthRepo(DioConsumer(dio: Dio()))..SearchPost(),
+            ),
+
+            child: const CatgoryPage(),
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (_) => const SplachBody());
     }
