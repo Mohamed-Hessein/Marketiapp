@@ -1,9 +1,12 @@
 import 'package:app/Features/Home/data/all_product_model.dart';
 import 'package:app/Features/Home/persention/view/widget/add_catgory_card.dart';
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_state.dart';
 import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/services/services_locator.dart';
+import 'package:app/core/theme/colors.dart';
 import 'package:dartz/dartz.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
@@ -21,7 +24,9 @@ import 'package:flutter_svg/svg.dart';
 
 class ProductPageBody extends StatelessWidget {
   ProductPageBody({super.key});
-
+  final allProduct = sl<ProductCubit>();
+  final addfvaorite = sl<getFavoriteCubit>();
+  final detailsPROduct = sl<DetailsCubit>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,17 +62,14 @@ class ProductPageBody extends StatelessWidget {
               // TODO: implement listener
             },
             builder: (context, state) {
-              final cubit = context.read<FavoriteCubit>();
-              final id;
-              final cont = context.read<DetailsCubit>();
+              // final id;
+              // final cont = context.read<DetailsCubit>();
               if (state is ProductAllSuecss) {
                 return NotificationListener<ScrollNotification>(
                   onNotification: (ScrollNotification scrollInfo) {
                     if (scrollInfo.metrics.pixels ==
                         scrollInfo.metrics.maxScrollExtent) {
-                      context.read<ProductCubit>().getAllProduct(
-                        isLoadMore: true,
-                      );
+                      allProduct..getAllProduct(isLoadMore: true);
                     }
                     return true;
                   },
@@ -75,37 +77,65 @@ class ProductPageBody extends StatelessWidget {
                     delegate: SliverChildBuilderDelegate(
                       childCount: state.product.list.length,
                       (context, index) {
+                        bool isFAv = false;
                         final product = state.product.list[index];
-
+                        isFAv = state.product.list!.any(
+                          (p) => p.id == product.id,
+                        );
                         return cardAddProduct(
+                          button: SizedBox(
+                            width: 124.w,
+                            height: 38.h,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                fixedSize: Size(10, 7),
+
+                                side: BorderSide(
+                                  color: Constants.Textfeildborder,
+                                ),
+                              ),
+                              onPressed: () {
+                                context.read<cartCubit>().AddCart(
+                                  name: product.id,
+                                );
+                              },
+                              child: Text(
+                                'Add',
+                                style: AppTextSyles.textpopns14bcolor,
+                              ),
+                            ),
+                          ),
                           onTap: () {
+                            detailsPROduct.getDatils(id: product.id);
                             // cont.getDatils(id: product.id);
-                            // Navigator.pushNamed(context, Approuter.details);
+                            Navigator.pushNamed(context, Approuter.details);
                           },
                           title: product.title,
                           realImage: product.images[0],
                           price: product.price,
-                          image: BlocConsumer<FavoriteCubit, Set<int>>(
-                            listener: (context, state) {
-                              // TODO: implement listener
+                          image: IconButton(
+                            onPressed: () {
+                              if (isFAv) {
+                                addfvaorite.AddFAvoriete(name: product.id);
+                              } else {
+                                addfvaorite.DeleteFAvoriete(name: product.id);
+                              }
                             },
-                            builder: (context, state) {
-                              final isFAv = state.contains(product.id);
+                            icon: isFAv
+                                ? SvgPicture.asset(
+                                    ImageManager.heartIcon,
 
-                              return GestureDetector(
-                                onTap: () {
-                                  cubit.AddFAvoriete(name: product.id);
-                                },
-                                child: SvgPicture.asset(
-                                  isFAv
-                                      ? ImageManager.fillHeart
-                                      : ImageManager.heartIcon,
-                                  height: 24.h,
+                                    height: 24.h,
 
-                                  width: 24.w,
-                                ),
-                              );
-                            },
+                                    width: 24.w,
+                                  )
+                                : SvgPicture.asset(
+                                    ImageManager.fillHeart,
+
+                                    height: 24.h,
+
+                                    width: 24.w,
+                                  ),
                           ),
                         );
                       },

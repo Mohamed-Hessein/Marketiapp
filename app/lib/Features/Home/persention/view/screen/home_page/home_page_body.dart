@@ -7,6 +7,7 @@ import 'package:app/Features/Home/persention/view/widget/card_of_brands_homeview
 import 'package:app/Features/Home/persention/view/widget/listviewCard_home_pgae.dart';
 import 'package:app/Features/Home/persention/view/widget/populer_product_widget.dart';
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -105,7 +106,6 @@ class HomePageBody extends StatelessWidget {
               },
             ),
             SizedBox(height: 15),
-
             CardOfBrandsHomeview(
               colum: 1,
               hieght: 180.h,

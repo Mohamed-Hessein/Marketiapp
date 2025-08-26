@@ -1,8 +1,11 @@
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
+import 'package:app/core/services/services_locator.dart';
+import 'package:app/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,8 +17,8 @@ import 'package:app/core/theme/styles.dart';
 import 'package:flutter_svg/svg.dart';
 
 class FavoritePageBody extends StatelessWidget {
-  const FavoritePageBody({super.key});
-
+  FavoritePageBody({super.key});
+  final addfvaorite = sl<getFavoriteCubit>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -55,9 +58,6 @@ class FavoritePageBody extends StatelessWidget {
               // TODO: implement listener
             },
             builder: (context, state) {
-              final cubit = context.read<DeleteFavoriteCubit>();
-              final id;
-              final cont = context.read<DetailsCubit>();
               if (state is FavoriteSuecss) {
                 return NotificationListener<ScrollNotification>(
                   onNotification: (ScrollNotification scrollInfo) {
@@ -74,7 +74,10 @@ class FavoritePageBody extends StatelessWidget {
                       childCount: state.product.list.length,
                       (context, index) {
                         final product = state.product.list[index];
-
+                        bool isFAv = false;
+                        isFAv = state.product.list.any(
+                          (p) => p.id == product.id,
+                        );
                         return cardAddProduct(
                           onTap: () {
                             // cont.getDatils(id: product.id);
@@ -83,29 +86,44 @@ class FavoritePageBody extends StatelessWidget {
                           title: product.title,
                           realImage: product.images?[0],
                           price: product.price,
-                          image: BlocConsumer<DeleteFavoriteCubit, Set<int>>(
-                            listener: (context, state) {
-                              // TODO: implement listener
+                          image: GestureDetector(
+                            onTap: () {
+                              if (isFAv) {
+                                addfvaorite..DeleteFAvoriete(name: product.id);
+                              } else {
+                                addfvaorite..AddFAvoriete(name: product.id);
+                              }
                             },
-                            builder: (context, state) {
-                              final isFAv = state.contains(product.id);
+                            child: SvgPicture.asset(
+                              isFAv
+                                  ? ImageManager.fillHeart
+                                  : ImageManager.heartIcon,
+                              height: 24.h,
 
-                              return GestureDetector(
-                                onTap: () {
-                                  cubit.DeleteFAvoriete(name: product.id);
-                                },
-                                child: SvgPicture.asset(
-                                  key: ValueKey(index),
+                              width: 24.w,
+                            ),
+                          ),
+                          button: SizedBox(
+                            width: 124.w,
+                            height: 38.h,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                fixedSize: Size(10, 7),
 
-                                  isFAv
-                                      ? ImageManager.heartIcon
-                                      : ImageManager.fillHeart,
-                                  height: 24.h,
-
-                                  width: 24.w,
+                                side: BorderSide(
+                                  color: Constants.Textfeildborder,
                                 ),
-                              );
-                            },
+                              ),
+                              onPressed: () {
+                                context.read<cartCubit>().AddCart(
+                                  name: product.id,
+                                );
+                              },
+                              child: Text(
+                                'Add',
+                                style: AppTextSyles.textpopns14bcolor,
+                              ),
+                            ),
                           ),
                         );
                       },

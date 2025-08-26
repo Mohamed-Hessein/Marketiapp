@@ -1,5 +1,7 @@
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/brand_product_state.dart';
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_state.dart';
 import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/catgroy_product_state.dart';
 import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
@@ -7,6 +9,7 @@ import 'package:app/Features/Home/persention/view_model/details_state.dart';
 import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_state.dart';
 import 'package:app/Features/Home/persention/view_model/search_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +28,7 @@ import 'package:app/core/theme/colors.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
+  initsetup();
   runApp(const MyApp());
 }
 
@@ -38,104 +42,17 @@ class MyApp extends StatelessWidget {
       designSize: Size(375, 812),
       minTextAdapt: true,
       builder: (context, child) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => Signupcubit(
-                ChangePassinitial(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              ),
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: Approuter.generateRoute,
+          theme: ThemeData.light(useMaterial3: true).copyWith(
+            scaffoldBackgroundColor: Colors.white,
+            shadowColor: Color(0xFFB2CCFF),
+            cardTheme: CardThemeData().copyWith(
+              shadowColor: Constants.Textfeildborder,
             ),
-            BlocProvider(
-              create: (context) => ProductCubit(
-                Productinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              )..getProduct(),
-            ),
-            BlocProvider(
-              create: (context) => CatgroyProductCubit(
-                Catgroylinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              )..getCatgroyPRoduct(),
-            ),
-            BlocProvider(
-              create: (context) => BrandProdctCubit(
-                BrandProductlinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              )..getBrandPRoduct(),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  FavoriteCubit(AuthRepo(DioConsumer(dio: Dio())))
-                    ..AddFAvoriete(),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  DeleteFavoriteCubit(AuthRepo(DioConsumer(dio: Dio())))
-                    ..DeleteFAvoriete(),
-            ),
-            BlocProvider(
-              create: (context) => Signupcubit(
-                SignIninitial(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => getFavoriteCubit(
-                Favoritelinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              )..getfav(),
-            ),
-            BlocProvider(
-              create: (context) => BrandsCubit(
-                ProductBrandsinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              )..getProductBrands(),
-            ),
-            BlocProvider(
-              create: (context) => catgoryCubit(
-                ProductCatgroyinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              )..getProductCatgoru(),
-            ),
-            BlocProvider(
-              create: (context) => DetailsCubit(
-                Detailslinital(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              )..getDatils(),
-            ),
-            BlocProvider(
-              create: (context) => Signupcubit(
-                Signupinitial(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => Signupcubit(
-                AcvtiveResetCodeinitial(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => Signupcubit(
-                ResetCodeinitial(),
-                AuthRepo(DioConsumer(dio: Dio())),
-              ),
-            ),
-          ],
-
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            onGenerateRoute: Approuter.generateRoute,
-            theme: ThemeData.light(useMaterial3: true).copyWith(
-              scaffoldBackgroundColor: Colors.white,
-              shadowColor: Color(0xFFB2CCFF),
-              cardTheme: CardThemeData().copyWith(
-                shadowColor: Constants.Textfeildborder,
-              ),
-            ),
-            initialRoute: Approuter.splash,
           ),
+          initialRoute: Approuter.splash,
         );
       },
     );

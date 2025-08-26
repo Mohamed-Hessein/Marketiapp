@@ -273,14 +273,14 @@ class AuthRepo {
     }
   }
 
-  Future<Either<ErrorModel, Signupmodel>> favoritePost({favid}) async {
+  Future<Either<ErrorModel, String>> favoritePost({favid}) async {
     try {
       final response = await api.post(
         Endpoints.favPost,
         data: {ApiKeys.favProductId: favid},
       );
       final favPost = Signupmodel.fromJson(response);
-      return Right(favPost);
+      return Right(ApiKeys.ErrorMessage);
     } on AppException catch (e) {
       return left(e.errModel);
     }
@@ -298,11 +298,49 @@ class AuthRepo {
     }
   }
 
-  Future<Either<ErrorModel, Signupmodel>> deletfavorite({favid}) async {
+  Future<Either<ErrorModel, String>> deletfavorite({favid}) async {
     try {
       final response = await api.delete(
         Endpoints.deletefav,
         data: {ApiKeys.favProductId: favid},
+      );
+      final favPost = Signupmodel.fromJson(response);
+      return Right(ApiKeys.ErrorMessage);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, ProductList>> getCart({name}) async {
+    try {
+      final response = await api.get(Endpoints.getCArt);
+
+      final productModel = ProductList.fromJson(response);
+
+      return Right(productModel);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, String>> deleteCart({favid}) async {
+    try {
+      final response = await api.delete(
+        Endpoints.deleteCart,
+        data: {ApiKeys.favProductId: favid},
+      );
+      final favPost = Signupmodel.fromJson(response);
+      return Right(ApiKeys.ErrorMessage);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, Signupmodel>> AddCart({cartid}) async {
+    try {
+      final response = await api.post(
+        Endpoints.addCart,
+        data: {ApiKeys.favProductId: cartid},
       );
       final favPost = Signupmodel.fromJson(response);
       return Right(favPost);

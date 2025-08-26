@@ -109,12 +109,14 @@ class cardAddProduct extends StatelessWidget {
     this.realImage,
     this.title,
     required this.price,
+    required this.button,
   });
   final Function() onTap;
-  final image;
+  final dynamic image;
   final dynamic realImage;
   final title;
   final dynamic price;
+  final Widget button;
   bool isCliked = true;
   @override
   Widget build(BuildContext context) {
@@ -200,19 +202,7 @@ class cardAddProduct extends StatelessWidget {
             Positioned(
               bottom: MediaQuery.of(context).size.height * .015,
               left: MediaQuery.of(context).size.height * .050,
-              child: SizedBox(
-                width: 124.w,
-                height: 38.h,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    fixedSize: Size(10, 7),
-
-                    side: BorderSide(color: Constants.Textfeildborder),
-                  ),
-                  onPressed: () {},
-                  child: Text('Add', style: AppTextSyles.textpopns14bcolor),
-                ),
-              ),
+              child: button,
             ),
           ],
         ),

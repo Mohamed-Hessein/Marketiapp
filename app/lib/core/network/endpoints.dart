@@ -18,6 +18,9 @@ class Endpoints {
   static const favPost = '/user/addFavorite';
   static const getfav = '/user/getFavorite';
   static const deletefav = '/user/deleteFavorite';
+  static const addCart = '/user/addCart';
+  static const getCArt = '/user/getCart';
+  static const deleteCart = '/user/deleteCart';
   static String SignUp(id) {
     return "$baseurl/$id";
   }

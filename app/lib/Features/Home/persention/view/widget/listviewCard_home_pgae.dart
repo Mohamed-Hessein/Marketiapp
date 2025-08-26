@@ -3,10 +3,14 @@ import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Home/persention/view/widget/catogry_card.dart';
 import 'package:app/Features/Home/persention/view/widget/list_view_product_card.dart';
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:app/core/Router/appRouter.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
+import 'package:app/core/theme/colors.dart';
+import 'package:app/core/theme/styles.dart';
+import 'package:dartz/dartz.dart' as product;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +30,21 @@ class ListviewcardHomePgae extends StatelessWidget {
             itemBuilder: (context, index) {
               final prodcutreal = state.product.list[index];
               return cardAddProduct(
+                button: SizedBox(
+                  width: 124.w,
+                  height: 38.h,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      fixedSize: Size(10, 7),
+
+                      side: BorderSide(color: Constants.Textfeildborder),
+                    ),
+                    onPressed: () {
+                      context.read<cartCubit>().AddCart(name: product.id);
+                    },
+                    child: Text('Add', style: AppTextSyles.textpopns14bcolor),
+                  ),
+                ),
                 price: prodcutreal.price,
                 title: prodcutreal.title,
                 realImage: prodcutreal.images[0],

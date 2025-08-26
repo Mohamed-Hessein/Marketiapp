@@ -22,3 +22,20 @@ class FavoriteError extends FavoriteState {
 }
 
 class Favoritelinital extends FavoriteState {}
+
+class FavoriteaddRemoveState {}
+
+class FavoriteladRemveLoading extends FavoriteaddRemoveState {}
+
+class FavoriteladRemveSuecss extends FavoriteaddRemoveState {
+  final Signupmodel product;
+
+  FavoriteladRemveSuecss({required this.product});
+}
+
+class FavoriteladRemveError extends FavoriteaddRemoveState {
+  final ErrorModel message;
+  FavoriteladRemveError({required this.message});
+}
+
+class FavoriteladRemveinital extends FavoriteaddRemoveState {}

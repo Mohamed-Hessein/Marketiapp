@@ -1,4 +1,7 @@
+import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:app/Features/Home/persention/view/screen/favorite_page/favorite_page_body.dart';
@@ -45,7 +48,10 @@ class FavoritePage extends StatelessWidget {
           ],
         ),
       ),
-      body: FavoritePageBody(),
+      body: BlocProvider(
+        create: (context) => sl<getFavoriteCubit>()..getfav(),
+        child: FavoritePageBody(),
+      ),
     );
   }
 }

@@ -1,6 +1,9 @@
 import 'package:app/Features/Home/persention/view/screen/brand_product/brand_product_body.dart';
 import 'package:app/Features/Home/persention/view/screen/catgory_product/catgory_product_body.dart';
+import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:app/Features/Home/persention/view/screen/product_page/product_page_body.dart';
@@ -47,7 +50,10 @@ class BrandProduct extends StatelessWidget {
           ],
         ),
       ),
-      body: BrandProductBody(),
+      body: BlocProvider(
+        create: (context) => sl<BrandProdctCubit>()..getBrandPRoduct(),
+        child: BrandProductBody(),
+      ),
     );
   }
 }

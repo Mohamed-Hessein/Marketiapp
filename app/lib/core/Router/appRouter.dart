@@ -1,10 +1,22 @@
+import 'package:app/Features/Auth/Persention/ViewModel/sign_up_cubit.dart';
+import 'package:app/Features/Auth/Persention/ViewModel/sign_up_state.dart';
 import 'package:app/Features/Auth/data/Repo/Auth_repo.dart';
 import 'package:app/Features/Home/persention/view/screen/brand_product/brand_product.dart';
+import 'package:app/Features/Home/persention/view/screen/cart/cart_added_page.dart';
 import 'package:app/Features/Home/persention/view/screen/catgory_product/catgory_product.dart';
+import 'package:app/Features/Home/persention/view/screen/favorite_page/favorite_page.dart';
+import 'package:app/Features/Home/persention/view/screen/home_page/home_page.dart';
+import 'package:app/Features/Home/persention/view/screen/home_page/home_page_body.dart';
+import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/brand_product_state.dart';
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_state.dart';
 import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/catgroy_product_state.dart';
 import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/details_state.dart';
+import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
+import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:app/Features/Home/persention/view_model/search_cubit.dart';
@@ -54,6 +66,7 @@ class Approuter {
   static const addCatgoryPage = '/addCatgoryPage';
   static const details = '/details';
   static const catgroyProduct = '/catgroyProduct';
+  static const favoritepage = '/fav';
   static const splash = '/spalsh';
 
   static const brandProduct = '/brandProduct';
@@ -64,47 +77,109 @@ class Approuter {
       case onBording:
         return MaterialPageRoute(builder: (_) => onbordingpage());
       case logIn:
-        return MaterialPageRoute(builder: (_) => const Login());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                Signupcubit(SignIninitial(), AuthRepo(DioConsumer(dio: Dio()))),
+
+            child: const Login(),
+          ),
+        );
       case forgotPasswordPhone:
         return MaterialPageRoute(builder: (_) => const Forgotpassword());
       case forgotPasswordEmail:
-        return MaterialPageRoute(builder: (_) => const Forgotpasswordbyemail());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => Signupcubit(
+              ResetCodeinitial(),
+              AuthRepo(DioConsumer(dio: Dio())),
+            ),
+
+            child: const Forgotpasswordbyemail(),
+          ),
+        );
+
       case returnPassword:
         return MaterialPageRoute(builder: (_) => const Login());
       case '/returnforgtepassmail':
         return MaterialPageRoute(builder: (_) => const Forgotpassword());
       case signUp:
-        return MaterialPageRoute(builder: (_) => const Signup());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                Signupcubit(Signupinitial(), AuthRepo(DioConsumer(dio: Dio()))),
+
+            child: const Signup(),
+          ),
+        );
       case enterCodoPhone:
         return MaterialPageRoute(builder: (_) => const Entercode());
       case enterCode:
-        return MaterialPageRoute(builder: (_) => const Entercodebyemail());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => Signupcubit(
+              AcvtiveResetCodeinitial(),
+              AuthRepo(DioConsumer(dio: Dio())),
+            ),
+
+            child: const Entercodebyemail(),
+          ),
+        );
       case changePass:
-        return MaterialPageRoute(builder: (_) => const Changepassword());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => Signupcubit(
+              ChangePassinitial(),
+              AuthRepo(DioConsumer(dio: Dio())),
+            ),
+
+            child: const Changepassword(),
+          ),
+        );
       case congra:
         return MaterialPageRoute(builder: (_) => const Congr());
       case homePage:
-        return MaterialPageRoute(builder: (_) => const NavgiateBarWidget());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => ProductCubit(
+                  Productinital(),
+                  AuthRepo(DioConsumer(dio: Dio())),
+                )..getProduct(),
+              ),
+
+              BlocProvider(
+                create: (context) => SearchCubit(
+                  Searchlinital(),
+                  AuthRepo(DioConsumer(dio: Dio())),
+                )..Search(),
+              ),
+            ],
+            child: NavgiateBarWidget(),
+          ),
+        );
       case catogroy:
         return MaterialPageRoute(builder: (_) => const CatgoryPage());
       case catgroyProduct:
         return MaterialPageRoute(builder: (_) => CatgoryProduct());
       case product:
+        return MaterialPageRoute(builder: (_) => const ProductPage());
+      case emptyCart:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => ProductCubit(
-              ProductAllinital(),
-              AuthRepo(DioConsumer(dio: Dio())),
-            )..getAllProduct(),
+            create: (context) =>
+                cartCubit(cartlinital(), AuthRepo(DioConsumer(dio: Dio())))
+                  ..getCart(),
 
-            child: const ProductPage(),
+            child: const CartAddedPage(),
           ),
         );
-      case emptyCart:
-        return MaterialPageRoute(builder: (_) => const EmptyCart());
       case catgorPage:
+        final args = settings.arguments as Map;
         return MaterialPageRoute(builder: (_) => const CatgoryPageScreen());
       case brandsPage:
+        final args = settings.arguments as Map;
         return MaterialPageRoute(builder: (_) => const BrandsPages());
       case bestForYou:
         return MaterialPageRoute(builder: (_) => const BestForYou());
@@ -112,6 +187,18 @@ class Approuter {
         return MaterialPageRoute(builder: (_) => const ProductDetailsPage());
       case details:
         return MaterialPageRoute(builder: (_) => ProductDetailsPage());
+
+      case favoritepage:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getFavoriteCubit(
+              Favoritelinital(),
+              AuthRepo(DioConsumer(dio: Dio())),
+            )..getfav(),
+
+            child: FavoritePage(),
+          ),
+        );
       case brandProduct:
         return MaterialPageRoute(builder: (_) => BrandProduct());
 

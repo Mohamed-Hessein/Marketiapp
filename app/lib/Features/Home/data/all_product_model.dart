@@ -17,7 +17,7 @@ class ProductList {
 }
 
 class Product {
-  final int id;
+  final dynamic id;
   final String title;
   final String description;
   final String category;

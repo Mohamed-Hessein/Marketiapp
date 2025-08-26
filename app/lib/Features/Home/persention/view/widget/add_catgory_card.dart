@@ -108,12 +108,14 @@ class AddCatgoryCard extends StatelessWidget {
 }
 
 class CartAddedWidget extends StatelessWidget {
-  const CartAddedWidget({super.key});
-
+  const CartAddedWidget({super.key, this.iamge, this.button, this.text});
+  final iamge;
+  final button;
+  final text;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 347.w,
+      width: 400.w,
       height: 180.h,
       child: Stack(
         children: [
@@ -122,7 +124,7 @@ class CartAddedWidget extends StatelessWidget {
             color: Colors.white,
             child: Row(
               children: [
-                Image.asset(ImageManager.earPods, height: 120.h, width: 108.w),
+                Image.network(iamge, height: 120.h, width: 75.w),
 
                 SizedBox(width: 8.w),
                 Column(
@@ -133,19 +135,24 @@ class CartAddedWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Pampers Swaddlers',
-                          style: AppTextSyles.textpopns14color,
+                          text,
+                          style: TextStyle(fontSize: 10, fontFamily: "poppins"),
                         ),
                         SizedBox(width: 40.w),
                         SvgPicture.asset(
                           ImageManager.heartIcon,
-                          height: 24.h,
-                          width: 24.w,
+                          height: 25.h,
+                          width: 25.w,
                         ),
                       ],
                     ),
                     SizedBox(height: 2.h),
-                    Text('84 Diapers', style: AppTextSyles.textpopns12Color),
+                    Flexible(
+                      child: Text(
+                        '84 Diapers',
+                        style: AppTextSyles.textpopns12Color,
+                      ),
+                    ),
                     SizedBox(height: 8.h),
                     Row(
                       children: [
@@ -176,26 +183,14 @@ class CartAddedWidget extends StatelessWidget {
                           width: 20.w,
                         ),
                         Text(
-                          '4.9',
+                          '4.9 ',
                           style: AppTextSyles.textpopns12BlueforgotColor,
                         ),
                       ],
                     ),
                     SizedBox(height: 8.h),
 
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(),
-                          onPressed: () {},
-                          child: SvgPicture.asset(
-                            ImageManager.basketIcon,
-                            width: 17.w,
-                            height: 17.h,
-                          ),
-                        ),
-                      ],
-                    ),
+                    Row(children: [button]),
                   ],
                 ),
               ],

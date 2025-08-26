@@ -1,5 +1,8 @@
 import 'package:app/Features/Home/persention/view/widget/Grid_ctagory_widget.dart';
+import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:app/Features/Home/persention/view/screen/catgory_page/catgory_page_screen_body.dart';
@@ -46,7 +49,10 @@ class CatgoryPageScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: CatgoryPageScreenBody(catgroya: catgroy),
+      body: BlocProvider(
+        create: (context) => sl<catgoryCubit>()..getProductCatgoru(),
+        child: CatgoryPageScreenBody(catgroya: catgroy),
+      ),
     );
   }
 }

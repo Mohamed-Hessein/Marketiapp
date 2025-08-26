@@ -2,12 +2,15 @@ import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Home/persention/view/widget/custom_search_textfield.dart';
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/brand_product_state.dart';
+import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/catgroy_product_state.dart';
 import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/details_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
+import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,11 +23,11 @@ import 'package:app/core/theme/colors.dart';
 import 'package:app/core/theme/styles.dart';
 
 class BrandProductBody extends StatelessWidget {
-  const BrandProductBody({super.key});
-
+  BrandProductBody({super.key});
+  final allProduct = sl<ProductCubit>();
+  final detailsPROduct = sl<DetailsCubit>();
   @override
   Widget build(BuildContext context) {
-    final id = context.read<BrandProdctCubit>();
     return Padding(
       padding: EdgeInsets.only(top: 14.h),
       child: CustomScrollView(
@@ -63,9 +66,7 @@ class BrandProductBody extends StatelessWidget {
                   onNotification: (ScrollNotification scrollInfo) {
                     if (scrollInfo.metrics.pixels ==
                         scrollInfo.metrics.maxScrollExtent) {
-                      context.read<ProductCubit>().getAllProduct(
-                        isLoadMore: true,
-                      );
+                      allProduct.getAllProduct(isLoadMore: true);
                     }
                     return true;
                   },
@@ -75,11 +76,36 @@ class BrandProductBody extends StatelessWidget {
                       (context, index) {
                         final product = state.product.list[index];
                         return cardAddProduct(
-                          onTap: () {},
+                          button: SizedBox(
+                            width: 124.w,
+                            height: 38.h,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                fixedSize: Size(10, 7),
+
+                                side: BorderSide(
+                                  color: Constants.Textfeildborder,
+                                ),
+                              ),
+                              onPressed: () {
+                                context.read<cartCubit>().AddCart(
+                                  name: product.id,
+                                );
+                              },
+                              child: Text(
+                                'Add',
+                                style: AppTextSyles.textpopns14bcolor,
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            detailsPROduct.getDatils(id: product.id);
+                            Navigator.pushNamed(context, Approuter.details);
+                          },
                           title: product.title,
                           realImage: product.images[0],
                           price: product.price,
-                          image: ImageManager.heartIcon,
+                          image: SvgPicture.asset(ImageManager.heartIcon),
                         );
                       },
                     ),

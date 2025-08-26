@@ -1,6 +1,7 @@
 import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/details_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,11 +14,11 @@ import 'package:app/core/theme/colors.dart';
 import 'package:app/core/theme/styles.dart';
 
 class ProductDetailsBody extends StatelessWidget {
-  const ProductDetailsBody({super.key});
+  ProductDetailsBody({super.key});
+  final detailsPROduct = sl<DetailsCubit>();
 
   @override
   Widget build(BuildContext context) {
-    final id = context.read<ProductCubit>();
     return BlocConsumer<DetailsCubit, Detailstate>(
       listener: (context, state) {
         // TODO: implement listener

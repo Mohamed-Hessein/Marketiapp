@@ -17,7 +17,7 @@ class FavProductListResponse {
 }
 
 class ProductListItem {
-  int? id;
+  dynamic? id;
   String? title;
   String? description;
   String? category;
