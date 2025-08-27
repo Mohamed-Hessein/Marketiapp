@@ -20,7 +20,9 @@ import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:app/Features/Home/persention/view_model/search_cubit.dart';
+import 'package:app/Features/Profile/Persention/view/screen/profile.dart';
 import 'package:app/core/network/Dio_consumer.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:app/Features/Auth/Persention/view/Screen/login/login.dart';
@@ -67,6 +69,7 @@ class Approuter {
   static const details = '/details';
   static const catgroyProduct = '/catgroyProduct';
   static const favoritepage = '/fav';
+  static const profile = '/profile';
   static const splash = '/spalsh';
 
   static const brandProduct = '/brandProduct';
@@ -77,65 +80,24 @@ class Approuter {
       case onBording:
         return MaterialPageRoute(builder: (_) => onbordingpage());
       case logIn:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-                Signupcubit(SignIninitial(), AuthRepo(DioConsumer(dio: Dio()))),
-
-            child: const Login(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => const Login());
       case forgotPasswordPhone:
         return MaterialPageRoute(builder: (_) => const Forgotpassword());
       case forgotPasswordEmail:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => Signupcubit(
-              ResetCodeinitial(),
-              AuthRepo(DioConsumer(dio: Dio())),
-            ),
-
-            child: const Forgotpasswordbyemail(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => const Forgotpasswordbyemail());
 
       case returnPassword:
         return MaterialPageRoute(builder: (_) => const Login());
       case '/returnforgtepassmail':
         return MaterialPageRoute(builder: (_) => const Forgotpassword());
       case signUp:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-                Signupcubit(Signupinitial(), AuthRepo(DioConsumer(dio: Dio()))),
-
-            child: const Signup(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => Signup());
       case enterCodoPhone:
         return MaterialPageRoute(builder: (_) => const Entercode());
       case enterCode:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => Signupcubit(
-              AcvtiveResetCodeinitial(),
-              AuthRepo(DioConsumer(dio: Dio())),
-            ),
-
-            child: const Entercodebyemail(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => const Entercodebyemail());
       case changePass:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => Signupcubit(
-              ChangePassinitial(),
-              AuthRepo(DioConsumer(dio: Dio())),
-            ),
-
-            child: const Changepassword(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => const Changepassword());
       case congra:
         return MaterialPageRoute(builder: (_) => const Congr());
       case homePage:
@@ -162,9 +124,21 @@ class Approuter {
       case catogroy:
         return MaterialPageRoute(builder: (_) => const CatgoryPage());
       case catgroyProduct:
-        return MaterialPageRoute(builder: (_) => CatgoryProduct());
+        final catgroy = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (_) =>
+                sl<CatgroyProductCubit>()..getCatgroyPRoduct(name: catgroy),
+            child: CatgoryProduct(catgroyName: catgroy),
+          ),
+          settings: settings,
+        );
       case product:
-        return MaterialPageRoute(builder: (_) => const ProductPage());
+        final id = settings.arguments as dynamic;
+        return MaterialPageRoute(
+          builder: (_) => const ProductPage(),
+          settings: settings,
+        );
       case emptyCart:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -176,17 +150,32 @@ class Approuter {
           ),
         );
       case catgorPage:
-        final args = settings.arguments as Map;
-        return MaterialPageRoute(builder: (_) => const CatgoryPageScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => sl<catgoryCubit>()..getProductCatgoru(),
+            child: const CatgoryPageScreen(),
+          ),
+        );
       case brandsPage:
-        final args = settings.arguments as Map;
-        return MaterialPageRoute(builder: (_) => const BrandsPages());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => sl<BrandsCubit>()..getProductBrands(),
+            child: const BrandsPages(),
+          ),
+        );
       case bestForYou:
         return MaterialPageRoute(builder: (_) => const BestForYou());
       case addCatgoryPage:
         return MaterialPageRoute(builder: (_) => const ProductDetailsPage());
       case details:
-        return MaterialPageRoute(builder: (_) => ProductDetailsPage());
+        final id = settings.arguments as dynamic;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => sl<DetailsCubit>()..getDatils(id: id),
+            child: ProductDetailsPage(id: id),
+          ),
+          settings: settings,
+        );
 
       case favoritepage:
         return MaterialPageRoute(
@@ -200,7 +189,15 @@ class Approuter {
           ),
         );
       case brandProduct:
-        return MaterialPageRoute(builder: (_) => BrandProduct());
+        final brands = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (_) =>
+                sl<BrandProdctCubit>()..getBrandPRoduct(name: brands),
+            child: BrandProduct(brandName: brands),
+          ),
+          settings: settings,
+        );
 
       case search:
         return MaterialPageRoute(
@@ -213,6 +210,9 @@ class Approuter {
             child: const CatgoryPage(),
           ),
         );
+      case profile:
+        return MaterialPageRoute(builder: (_) => Profile());
+
       default:
         return MaterialPageRoute(builder: (_) => const SplachBody());
     }

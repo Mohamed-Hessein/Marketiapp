@@ -10,8 +10,8 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class CatgoryProduct extends StatelessWidget {
-  const CatgoryProduct({super.key});
-
+  const CatgoryProduct({super.key, this.catgroyName});
+  final catgroyName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,10 +49,7 @@ class CatgoryProduct extends StatelessWidget {
           ],
         ),
       ),
-      body: BlocProvider(
-        create: (context) => sl<CatgroyProductCubit>()..getCatgroyPRoduct(),
-        child: CatgoryProductBody(),
-      ),
+      body: CatgoryProductBody(),
     );
   }
 }

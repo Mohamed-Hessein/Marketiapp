@@ -1,3 +1,4 @@
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +18,7 @@ class Loginbody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Signupcubit, Signupstate>(
+      bloc: sl<Signupcubit>(),
       listener: (context, state) {
         if (state is SignInSecuss) {
           ScaffoldMessenger.of(
@@ -43,7 +45,7 @@ class Loginbody extends StatelessWidget {
                 ),
                 SizedBox(height: 32.h),
                 CustomTextFeild(
-                  controler: context.read<Signupcubit>().signUpEmail,
+                  controler: sl<Signupcubit>().signUpEmail,
                   labelText: Textconst.emaillabel,
                   wigeth: 5.w,
                   height: 5.h,
@@ -52,7 +54,7 @@ class Loginbody extends StatelessWidget {
                 ),
                 SizedBox(height: 14.h),
                 CustomTextFeild(
-                  controler: context.read<Signupcubit>().signUpPassword,
+                  controler: sl<Signupcubit>().signUpPassword,
                   height: 5.h,
                   wigeth: 5.w,
                   hintText: '•••••••••••',
@@ -65,7 +67,7 @@ class Loginbody extends StatelessWidget {
                     ? CircularProgressIndicator()
                     : Custtombuttonnext(
                         onTap: () {
-                          context.read<Signupcubit>().signin();
+                          sl<Signupcubit>().signin();
                         },
                         text: Textconst.signIn,
                       ),

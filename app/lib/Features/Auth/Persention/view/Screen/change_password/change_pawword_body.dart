@@ -1,3 +1,4 @@
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +18,7 @@ class Changepawwordbody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Signupcubit, Signupstate>(
+      bloc: sl<Signupcubit>(),
       listener: (context, state) {
         if (state is ChangePassLSecuess) {
           ScaffoldMessenger.of(
@@ -51,17 +53,10 @@ class Changepawwordbody extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 22.h),
-                CustomTextFeild(
-                  controler: context.read<Signupcubit>().signUpEmail,
-                  labelText: Textconst.emaillabel,
-                  wigeth: 16.w,
-                  height: 16.h,
-                  hintText: Textconst.emailTextHint,
-                  assetImage: ImageManager.emailIcon,
-                ),
+
                 SizedBox(height: 14.h),
                 CustomTextFeild(
-                  controler: context.read<Signupcubit>().signUpPassword,
+                  controler: sl<Signupcubit>().signUpPassword,
                   height: 16.h,
                   wigeth: 16.w,
                   hintText: '•••••••••••',
@@ -70,7 +65,7 @@ class Changepawwordbody extends StatelessWidget {
                 ),
                 SizedBox(height: 14.h),
                 CustomTextFeild(
-                  controler: context.read<Signupcubit>().confirmPassword,
+                  controler: sl<Signupcubit>().confirmPassword,
                   height: 16.h,
                   wigeth: 16.w,
                   hintText: '•••••••••••',
@@ -82,7 +77,9 @@ class Changepawwordbody extends StatelessWidget {
                     ? CircularProgressIndicator()
                     : Custtombuttonnext(
                         onTap: () {
-                          context.read<Signupcubit>().changePassword();
+                          sl<Signupcubit>().changePassword(
+                            email: sl<Signupcubit>().user,
+                          );
                         },
                         text: Textconst.savedPass,
                       ),

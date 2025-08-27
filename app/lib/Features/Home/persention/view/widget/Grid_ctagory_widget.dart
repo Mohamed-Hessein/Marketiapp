@@ -33,8 +33,12 @@ class GridCtagoryWidget extends StatelessWidget {
               return CatgoryWidget(
                 colum: Image.network(image!),
                 onTap: () {
-                  catgorproudctubit.getCatgroyPRoduct(name: catgroy.name);
-                  Navigator.pushNamed(context, Approuter.catgroyProduct);
+                  //   catgorproudctubit.getCatgroyPRoduct(name: catgroy.name);
+                  Navigator.pushNamed(
+                    context,
+                    Approuter.catgroyProduct,
+                    arguments: catgroy.name,
+                  );
                 },
               );
             },

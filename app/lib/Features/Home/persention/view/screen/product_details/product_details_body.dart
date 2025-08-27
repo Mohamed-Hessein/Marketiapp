@@ -15,124 +15,130 @@ import 'package:app/core/theme/styles.dart';
 
 class ProductDetailsBody extends StatelessWidget {
   ProductDetailsBody({super.key});
-  final detailsPROduct = sl<DetailsCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DetailsCubit, Detailstate>(
-      listener: (context, state) {
-        // TODO: implement listener
+    return PopScope(
+      onPopInvoked: (didipop) {
+        if (didipop) {
+          context.read<DetailsCubit>().clear();
+        }
       },
-      builder: (context, state) {
-        if (state is DetailSuecss) {
-          final product = state.product;
-          return Padding(
-            padding: EdgeInsets.only(top: 24.h),
-            child: CustomScrollView(
-              scrollDirection: Axis.vertical,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      Image.network(
-                        product.thumbnail,
-                        height: 200.h,
-                        width: 199.w,
-                      ),
-                      SizedBox(height: 16.h),
-                      ImageDetail(
-                        itemBuilder: (context, index) {
-                          return Image.network(product.images[0]);
-                        },
-                      ),
-                      SizedBox(height: 37..h),
-                      RateWidget(rate: product.rating),
-                      SizedBox(height: 8.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(width: 15.w),
-                          Text(
-                            product.title,
-                            style: AppTextSyles.textpopns20color,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(width: 15.w),
-                          Text(
-                            product.title,
-                            style: AppTextSyles.textpopns16color.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 17),
-                        child: Text(product.description),
-                      ),
-                      SizedBox(height: 4.h),
-                      SelectSize(),
-                      SizedBox(height: 12.h),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+      child: BlocConsumer<DetailsCubit, Detailstate>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          if (state is DetailSuecss) {
+            final product = state.product;
+            return Padding(
+              padding: EdgeInsets.only(top: 24.h),
+              child: CustomScrollView(
+                scrollDirection: Axis.vertical,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        Image.network(
+                          product.thumbnail,
+                          height: 200.h,
+                          width: 199.w,
+                        ),
+                        SizedBox(height: 16.h),
+                        ImageDetail(
+                          itemBuilder: (context, index) {
+                            return Image.network(product.images[0]);
+                          },
+                        ),
+                        SizedBox(height: 37..h),
+                        RateWidget(rate: product.rating),
+                        SizedBox(height: 8.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            SizedBox(width: 15.w),
                             Text(
-                              '   Price\n${product.price}',
-                              style: AppTextSyles.textpopns18color,
+                              product.title,
+                              style: AppTextSyles.textpopns20color,
                             ),
-                            SizedBox(width: 3.w),
-                            SizedBox(
-                              width: 232.w,
-                              height: 48.h,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  fixedSize: Size(10, 7),
-                                  side: BorderSide(
-                                    color: Constants.Textfeildborder,
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageManager.cartIconOnly,
-                                      width: 28.w,
-                                      height: 28.h,
-                                    ),
-                                    Text(
-                                      'Add To Cart',
-                                      style: AppTextSyles.textpopns14bcolor,
-                                    ),
-                                  ],
-                                ),
+                          ],
+                        ),
+                        SizedBox(height: 8.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 15.w),
+                            Text(
+                              product.title,
+                              style: AppTextSyles.textpopns16color.copyWith(
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 17),
+                          child: Text(product.description),
+                        ),
+                        SizedBox(height: 4.h),
+                        SelectSize(),
+                        SizedBox(height: 12.h),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                            children: [
+                              Text(
+                                '   Price\n${product.price}',
+                                style: AppTextSyles.textpopns18color,
+                              ),
+                              SizedBox(width: 3.w),
+                              SizedBox(
+                                width: 232.w,
+                                height: 48.h,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    fixedSize: Size(10, 7),
+                                    side: BorderSide(
+                                      color: Constants.Textfeildborder,
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        ImageManager.cartIconOnly,
+                                        width: 28.w,
+                                        height: 28.h,
+                                      ),
+                                      Text(
+                                        'Add To Cart',
+                                        style: AppTextSyles.textpopns14bcolor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        } else if (state is DetailLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is DetailError) {
-          return Text(state.message.errMessage);
-        } else {
-          return SizedBox.shrink();
-        }
-      },
+                ],
+              ),
+            );
+          } else if (state is DetailLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is DetailError) {
+            return Text(state.message.errMessage);
+          } else {
+            return SizedBox.shrink();
+          }
+        },
+      ),
     );
   }
 }

@@ -37,6 +37,13 @@ class AppTextSyles {
     color: Color(0xFf3F80FF),
     fontFamily: 'poppins',
   );
+
+  static TextStyle textpopns14greycolor = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 14.sp,
+    color: Color(0xFF929BAB),
+    fontFamily: 'poppins',
+  );
   static TextStyle textpopns16color = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 16.sp,

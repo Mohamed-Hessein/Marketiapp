@@ -1,3 +1,4 @@
+import 'package:app/Features/Home/data/all_product_model.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Home/persention/view/widget/custom_search_textfield.dart';
 import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
@@ -21,8 +22,6 @@ import 'package:app/core/theme/styles.dart';
 
 class CatgoryProductBody extends StatelessWidget {
   CatgoryProductBody({super.key});
-  final detailsPROduct = sl<DetailsCubit>();
-  final allProduct = sl<ProductCubit>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,7 +62,9 @@ class CatgoryProductBody extends StatelessWidget {
                   onNotification: (ScrollNotification scrollInfo) {
                     if (scrollInfo.metrics.pixels ==
                         scrollInfo.metrics.maxScrollExtent) {
-                      allProduct.getAllProduct(isLoadMore: true);
+                      context.read<ProductCubit>().getAllProduct(
+                        isLoadMore: true,
+                      );
                     }
                     return true;
                   },
@@ -96,8 +97,11 @@ class CatgoryProductBody extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            detailsPROduct.getDatils(id: product.id);
-                            Navigator.pushNamed(context, Approuter.details);
+                            Navigator.pushNamed(
+                              context,
+                              Approuter.details,
+                              arguments: product.id,
+                            );
                           },
                           title: product.title,
                           realImage: product.images[0],

@@ -2,13 +2,13 @@ class ImageManager {
   static const String marktiaLogo = 'assets/image.png';
   static const String marktiaLogosvg = 'assets/images/Logo_Splash_Screen.svg';
   static const String slidingImage1 =
-      'assets/images/Illustration_Onboarding_2.svg';
+      'assets/images/Illustration_Onboarding_1.svg';
 
   static const String appleIcon = 'assets/images/Apple_Icon@3x.png';
   static const String arrowDown = 'assets/images/Arrow_Icon.svg';
   static const String avatarIcon = 'assets/images/Avatar_Icon@3x.png';
   static const String bagIcon = 'assets/images/Bag_Icon_UIA@3x.png';
-  static const String cameraIcon = 'assets/images/Camera_Icon@3x.png';
+  static const String cameraIcon = 'assets/images/Camera_Icon.svg';
   static const String cartIcon = 'assets/images/Cart_Icon_Field.svg';
   static const String cartIconx3 = 'assets/images/Cart_Icon_UIA@3x.png';
   static const String cashIcon = 'assets/images/Cash_Icon_UIA@3x.png';
@@ -68,7 +68,7 @@ class ImageManager {
   static const ratingIcon = 'assets/images/Rate_Icon@3x.png';
 
   static const searchIcon = 'assets/images/Search_Icons_UIA@3x.png';
-  static const settinIcon = 'assets/images/Setting_Icon_UIA@3x.png';
+  static const settinIcon = 'assets/images/Setting_Icon_UIA.svg';
   static const menuIcon = 'assets/images/Side_Menu_Icon.svg';
   static const starIcon = 'assets/images/Star_Icon.svg';
   static const timeIcon = 'assets/images/Time_Icon_UIA@2x.png';
@@ -98,4 +98,10 @@ class ImageManager {
   static const String vectorStar = 'assets/images/Vector.svg';
   static const String vectorTrue = 'assets/images/Vector (1).svg';
   static const String cartIconOnly = 'assets/images/Cart_Icon_UIA (1).svg';
+
+  static const String darkMode = 'assets/images/Dark_Mode_Icon.svg';
+  static const String logOut = 'assets/images/Log_Out_Icon.svg';
+  static const String toggle = 'assets/images/Toggle_Icon.svg';
+  static const String arrowSelected = 'assets/images/Arrow_Select.svg';
+  static const String vectorProfile = 'assets/images/Shapes.svg';
 }

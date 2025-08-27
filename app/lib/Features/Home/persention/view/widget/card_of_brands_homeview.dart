@@ -25,7 +25,6 @@ class CardOfBrandsHomeview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BrandsCubit, BrandsState>(
-      bloc: brandsCubit..getProductBrands(),
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -39,8 +38,12 @@ class CardOfBrandsHomeview extends StatelessWidget {
               return CatgoryBrandsWidget(
                 colum: brands.emoji,
                 onTap: () {
-                  productbyBrndsCubit.getBrandPRoduct(name: brands.name);
-                  Navigator.pushNamed(context, Approuter.brandProduct);
+                  // productbyBrndsCubit.getBrandPRoduct(name: brands.name);
+                  Navigator.pushNamed(
+                    context,
+                    Approuter.brandProduct,
+                    arguments: brands.name,
+                  );
                 },
                 title: "${brands.name}",
               );

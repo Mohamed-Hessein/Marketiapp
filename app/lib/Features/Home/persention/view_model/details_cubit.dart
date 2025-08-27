@@ -14,4 +14,8 @@ class DetailsCubit extends Cubit<Detailstate> {
       (suecss) => emit(DetailSuecss(product: suecss)),
     );
   }
+
+  void clear() {
+    emit(Detailslinital());
+  }
 }

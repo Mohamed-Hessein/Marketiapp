@@ -9,8 +9,8 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class BrandsPages extends StatelessWidget {
-  const BrandsPages({super.key, this.brands});
-  final Widget? brands;
+  const BrandsPages({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +46,7 @@ class BrandsPages extends StatelessWidget {
           ],
         ),
       ),
-      body: BrandsPageBody(brands: brands),
+      body: BrandsPageBody(),
     );
   }
 }

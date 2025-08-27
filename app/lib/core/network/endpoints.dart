@@ -21,6 +21,8 @@ class Endpoints {
   static const addCart = '/user/addCart';
   static const getCArt = '/user/getCart';
   static const deleteCart = '/user/deleteCart';
+  static const String upLoadImage = '/portfoilo/addImage';
+  static const String getUserPRofile = '/portfoilo/userData';
   static String SignUp(id) {
     return "$baseurl/$id";
   }

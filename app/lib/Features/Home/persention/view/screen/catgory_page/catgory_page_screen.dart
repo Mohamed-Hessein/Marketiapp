@@ -10,8 +10,8 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class CatgoryPageScreen extends StatelessWidget {
-  const CatgoryPageScreen({super.key, this.catgroy});
-  final Widget? catgroy;
+  const CatgoryPageScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,10 +49,7 @@ class CatgoryPageScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: BlocProvider(
-        create: (context) => sl<catgoryCubit>()..getProductCatgoru(),
-        child: CatgoryPageScreenBody(catgroya: catgroy),
-      ),
+      body: CatgoryPageScreenBody(),
     );
   }
 }

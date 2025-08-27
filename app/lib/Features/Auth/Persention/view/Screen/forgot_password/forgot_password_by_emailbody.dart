@@ -1,3 +1,4 @@
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +19,7 @@ class Forgotpasswordbyemailbody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Signupcubit, Signupstate>(
+      bloc: sl<Signupcubit>(),
       listener: (context, state) {
         if (state is ResetCodeSecuss) {
           ScaffoldMessenger.of(
@@ -54,7 +56,7 @@ class Forgotpasswordbyemailbody extends StatelessWidget {
                 ),
                 SizedBox(height: 22.h),
                 CustomTextFeild(
-                  controler: context.read<Signupcubit>().signUpEmail,
+                  controler: sl<Signupcubit>().signUpEmail,
                   labelText: Textconst.emaillabel,
                   wigeth: 16.w,
                   height: 16.h,
@@ -66,11 +68,15 @@ class Forgotpasswordbyemailbody extends StatelessWidget {
                     ? CircularProgressIndicator()
                     : Custtombuttonnext(
                         onTap: () {
-                          final cubit = context.read<Signupcubit>();
-                          cubit.svaeemil();
-                          cubit.user = cubit.signUpEmail.text;
-                          cubit.resetcode(email: cubit.user);
-                          // Navigator.pushNamed(context, Approuter.enterCode);
+                          sl<Signupcubit>().svaeemil();
+                          sl<Signupcubit>().user =
+                              sl<Signupcubit>().signUpEmail.text;
+                          sl<Signupcubit>().resetcode(
+                            email: sl<Signupcubit>().user,
+                          );
+
+                          //   sl<Signupcubit>()
+                          //     ..changePassword(email: sl<Signupcubit>().user);
                         },
                         text: 'Send Code',
                       ),

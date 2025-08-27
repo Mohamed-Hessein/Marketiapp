@@ -25,7 +25,6 @@ import 'package:app/core/theme/styles.dart';
 class BrandProductBody extends StatelessWidget {
   BrandProductBody({super.key});
   final allProduct = sl<ProductCubit>();
-  final detailsPROduct = sl<DetailsCubit>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -66,7 +65,9 @@ class BrandProductBody extends StatelessWidget {
                   onNotification: (ScrollNotification scrollInfo) {
                     if (scrollInfo.metrics.pixels ==
                         scrollInfo.metrics.maxScrollExtent) {
-                      allProduct.getAllProduct(isLoadMore: true);
+                      context.read<ProductCubit>().getAllProduct(
+                        isLoadMore: true,
+                      );
                     }
                     return true;
                   },
@@ -99,8 +100,11 @@ class BrandProductBody extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            detailsPROduct.getDatils(id: product.id);
-                            Navigator.pushNamed(context, Approuter.details);
+                            Navigator.pushNamed(
+                              context,
+                              Approuter.details,
+                              arguments: product.id,
+                            );
                           },
                           title: product.title,
                           realImage: product.images[0],

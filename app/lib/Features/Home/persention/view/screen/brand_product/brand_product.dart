@@ -11,8 +11,8 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class BrandProduct extends StatelessWidget {
-  const BrandProduct({super.key});
-
+  const BrandProduct({super.key, this.brandName});
+  final brandName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,10 +50,7 @@ class BrandProduct extends StatelessWidget {
           ],
         ),
       ),
-      body: BlocProvider(
-        create: (context) => sl<BrandProdctCubit>()..getBrandPRoduct(),
-        child: BrandProductBody(),
-      ),
+      body: BrandProductBody(),
     );
   }
 }

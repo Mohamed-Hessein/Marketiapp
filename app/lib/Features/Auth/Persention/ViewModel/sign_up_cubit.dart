@@ -6,7 +6,7 @@ import 'package:app/Features/Auth/data/Model/signin_model.dart';
 import 'package:app/Features/Auth/Persention/ViewModel/sign_up_state.dart';
 
 class Signupcubit extends Cubit<Signupstate> {
-  Signupcubit(super.initialState, this.authRepo);
+  Signupcubit(this.authRepo) : super(Signupinitial());
 
   TextEditingController signUpName = TextEditingController();
 
@@ -58,7 +58,7 @@ class Signupcubit extends Cubit<Signupstate> {
     );
   }
 
-  resetcode({required email}) async {
+  resetcode({email}) async {
     emit(ResetCodeLoading());
     final response = await authRepo.resetCode(email: email);
     response.fold(
@@ -67,7 +67,7 @@ class Signupcubit extends Cubit<Signupstate> {
     );
   }
 
-  activeCode({required email1}) async {
+  activeCode({email1}) async {
     emit(AcvtiveResetCodeLoading());
     final response = await authRepo.enterCode(
       email: email1,
@@ -79,10 +79,10 @@ class Signupcubit extends Cubit<Signupstate> {
     );
   }
 
-  changePassword() async {
+  changePassword({email}) async {
     emit(ChangePassLoading());
     final response = await authRepo.changePass(
-      email: signUpEmail.text,
+      email: email,
       password: signUpPassword.text,
       confrimpass: confirmPassword.text,
     );

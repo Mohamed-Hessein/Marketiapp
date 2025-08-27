@@ -8,7 +8,10 @@ import 'package:app/Features/Home/data/catgroy_product_model.dart';
 import 'package:app/Features/Home/data/dateils_model.dart';
 import 'package:app/Features/Home/data/get_favprite_model.dart';
 import 'package:app/Features/Home/data/serachModel.dart';
+import 'package:app/core/function/upLoade_image.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:app/Features/Auth/data/Model/signin_model.dart';
 import 'package:app/Features/Auth/data/Model/signup_model.dart';
@@ -344,6 +347,18 @@ class AuthRepo {
       );
       final favPost = Signupmodel.fromJson(response);
       return Right(favPost);
+    } on AppException catch (e) {
+      return left(e.errModel);
+    }
+  }
+
+  Future<Either<ErrorModel, Signupmodel>> uploadImage(XFile image) async {
+    try {
+      final file = await uploadImageToAPI(image);
+      final fromData = FormData.fromMap({"file": file});
+      final response = await api.post(Endpoints.upLoadImage, data: fromData);
+      final imagePost = Signupmodel.fromJson(response);
+      return Right(imagePost);
     } on AppException catch (e) {
       return left(e.errModel);
     }

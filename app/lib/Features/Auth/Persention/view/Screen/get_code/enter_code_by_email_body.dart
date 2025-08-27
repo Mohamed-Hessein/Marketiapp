@@ -1,3 +1,4 @@
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,7 @@ class Entercodebyemailbody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Signupcubit, Signupstate>(
+      bloc: sl<Signupcubit>(),
       listener: (context, state) {
         if (state is AcvtiveResetCodeLSecuess) {
           ScaffoldMessenger.of(
@@ -56,14 +58,14 @@ class Entercodebyemailbody extends StatelessWidget {
 
                 SizedBox(height: 22.h),
                 Pincodefeilds(
-                  controller: context.read<Signupcubit>().feildsCOdeController,
+                  controller: sl<Signupcubit>().feildsCOdeController,
                 ),
                 SizedBox(height: 22.h),
                 state is AcvtiveResetCodeLoading
                     ? CircularProgressIndicator()
                     : Custtombuttonnext(
                         onTap: () {
-                          final cubit = context.read<Signupcubit>();
+                          final cubit = sl<Signupcubit>();
                           final email = cubit.user;
                           cubit.activeCode(email1: email);
                         },

@@ -1,3 +1,4 @@
+import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,13 +13,11 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class CatgoryPageScreenBody extends StatelessWidget {
-  CatgoryPageScreenBody({super.key, this.catgroya});
-  final Widget? catgroya;
+  CatgoryPageScreenBody({super.key});
+
   @override
   @override
   Widget build(BuildContext context) {
-    final Widget catgroy =
-        catgroya ?? ModalRoute.of(context)!.settings.arguments as Widget;
     return Padding(
       padding: EdgeInsets.only(top: 14.h),
       child: CustomScrollView(
@@ -48,7 +47,42 @@ class CatgoryPageScreenBody extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, Approuter.catgroyProduct);
                   },
-                  child: catgroy,
+                  child: BlocConsumer<catgoryCubit, CatgoryState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      if (state is ProductCatgroySuecss) {
+                        return GridViewProduct(
+                          itemBuilder: (context, index) {
+                            final catgroy = state.product[index];
+                            final image = catgroy.image;
+                            return CatgoryWidget(
+                              colum: Image.network(image!),
+                              onTap: () {
+                                //   catgorproudctubit.getCatgroyPRoduct(name: catgroy.name);
+                                Navigator.pushNamed(
+                                  context,
+                                  Approuter.catgroyProduct,
+                                  arguments: catgroy.name,
+                                );
+                              },
+                            );
+                          },
+                          hieght: 810.h,
+                          scrollDir: Axis.vertical,
+                          itemCount: state.product.length,
+                          crossAxisCount: 2,
+                        );
+                      } else if (state is ProductCatgroyLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (state is ProductCatgroyError) {
+                        return Text(state.message);
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

@@ -9,8 +9,8 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage({super.key});
-
+  const ProductDetailsPage({super.key, this.id});
+  final id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +54,7 @@ class ProductDetailsPage extends StatelessWidget {
           ],
         ),
       ),
-      body: BlocProvider(
-        create: (context) => sl<DetailsCubit>()..getDatils(),
-        child: ProductDetailsBody(),
-      ),
+      body: ProductDetailsBody(),
     );
   }
 }

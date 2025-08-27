@@ -106,9 +106,12 @@ class ProductPageBody extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-                            detailsPROduct.getDatils(id: product.id);
                             // cont.getDatils(id: product.id);
-                            Navigator.pushNamed(context, Approuter.details);
+                            Navigator.pushNamed(
+                              context,
+                              Approuter.details,
+                              arguments: product.id,
+                            );
                           },
                           title: product.title,
                           realImage: product.images[0],

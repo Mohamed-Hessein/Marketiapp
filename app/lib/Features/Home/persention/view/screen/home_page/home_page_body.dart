@@ -67,22 +67,18 @@ class HomePageBody extends StatelessWidget {
               text: 'Catgory',
               onTap: () {
                 final Widget catgroyWidget = GridCtagoryWidget();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CatgoryPageScreen(
-                      catgroy: GridCtagoryWidget(
-                        scrollDI: Axis.vertical,
-                        height: 810.h,
-                      ),
-                    ),
-                  ),
-                );
+                Navigator.pushNamed(context, Approuter.catgorPage);
               },
               text2: 'View all',
             ),
             SizedBox(height: 15.h),
-            GridCtagoryWidget(scrollDI: Axis.horizontal, height: 250.h),
+            BlocProvider(
+              create: (context) => sl<catgoryCubit>()..getProductCatgoru(),
+              child: GridCtagoryWidget(
+                scrollDI: Axis.horizontal,
+                height: 250.h,
+              ),
+            ),
 
             SizedBox(height: 15.h),
 
@@ -91,25 +87,17 @@ class HomePageBody extends StatelessWidget {
               text2: 'View all',
               onTap: () {
                 final Widget myBrand = CardOfBrandsHomeview();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BrandsPages(
-                      brands: CardOfBrandsHomeview(
-                        colum: 2,
-                        hieght: 810.h,
-                        scrollDirction: Axis.vertical,
-                      ),
-                    ),
-                  ),
-                );
+                Navigator.pushNamed(context, Approuter.brandsPage);
               },
             ),
             SizedBox(height: 15),
-            CardOfBrandsHomeview(
-              colum: 1,
-              hieght: 180.h,
-              scrollDirction: Axis.horizontal,
+            BlocProvider(
+              create: (context) => sl<BrandsCubit>()..getProductBrands(),
+              child: CardOfBrandsHomeview(
+                colum: 1,
+                hieght: 180.h,
+                scrollDirction: Axis.horizontal,
+              ),
             ),
 
             RowViewAll(

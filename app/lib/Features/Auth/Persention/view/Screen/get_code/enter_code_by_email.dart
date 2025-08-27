@@ -1,4 +1,7 @@
+import 'package:app/Features/Auth/Persention/ViewModel/sign_up_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:app/Features/Auth/Persention/view/Screen/get_code/enter_code_by_email_body.dart';

@@ -1,3 +1,4 @@
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,7 @@ class SignupBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Signupcubit, Signupstate>(
+      bloc: sl<Signupcubit>(),
       listener: (context, state) {
         if (state is SignupSecuss) {
           ScaffoldMessenger.of(
@@ -41,7 +43,7 @@ class SignupBody extends StatelessWidget {
           ),
           SizedBox(height: 32),
           CustomTextFeild(
-            controler: context.read<Signupcubit>().signUpName,
+            controler: sl<Signupcubit>().signUpName,
             labelText: Textconst.yourNameLabel,
             wigeth: 2.w,
             height: 2.h,
@@ -52,7 +54,7 @@ class SignupBody extends StatelessWidget {
 
           SizedBox(height: 14.h),
           CustomTextPhoneFeild(
-            controler: context.read<Signupcubit>().signUpPhoneNumber,
+            controler: sl<Signupcubit>().signUpPhoneNumber,
             labelText: Textconst.phoneNumberLabel,
             height: 27.h,
             wigeth: 27.w,
@@ -63,7 +65,7 @@ class SignupBody extends StatelessWidget {
           SizedBox(height: 14),
 
           CustomTextFeild(
-            controler: context.read<Signupcubit>().signUpEmail,
+            controler: sl<Signupcubit>().signUpEmail,
             labelText: Textconst.emaillabel,
             height: 3.h,
             wigeth: 3.w,
@@ -72,7 +74,7 @@ class SignupBody extends StatelessWidget {
           ),
           SizedBox(height: 14.h),
           CustomTextFeild(
-            controler: context.read<Signupcubit>().signUpPassword,
+            controler: sl<Signupcubit>().signUpPassword,
             labelText: Textconst.passWordLabel,
             height: 16.h,
             wigeth: 16.w,
@@ -82,7 +84,7 @@ class SignupBody extends StatelessWidget {
           ),
           SizedBox(height: 14.h),
           CustomTextFeild(
-            controler: context.read<Signupcubit>().confirmPassword,
+            controler: sl<Signupcubit>().confirmPassword,
             labelText: Textconst.confermpassTextfieldLabel,
             height: 16.h,
             wigeth: 16.w,
@@ -98,7 +100,7 @@ class SignupBody extends StatelessWidget {
               ? CircularProgressIndicator()
               : Custtombuttonnext(
                   onTap: () {
-                    BlocProvider.of<Signupcubit>(context).signup();
+                    sl<Signupcubit>().signup();
                   },
                   text: Textconst.signIn,
                 ),
