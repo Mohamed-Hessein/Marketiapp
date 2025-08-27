@@ -49,7 +49,7 @@ void initsetup() {
     () => ProductCubit(ProductAllinital(), sl<AuthRepo>()),
   );
 
-  sl.registerLazySingleton<DetailsCubit>(
+  sl.registerFactory<DetailsCubit>(
     () => DetailsCubit(Detailslinital(), sl<AuthRepo>()),
   );
   sl.registerLazySingleton<ImageCubit>(
