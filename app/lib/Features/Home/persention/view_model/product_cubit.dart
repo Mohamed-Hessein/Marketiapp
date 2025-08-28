@@ -1,10 +1,11 @@
-import 'package:app/Features/Home/persention/view_model/details_state.dart';
+import 'package:app/Features/Home/data/repo/home_repo.dart';
+import 'package:app/Features/details/Persention/vm/details_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart'
     as authRepo;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/Features/Auth/data/Repo/Auth_repo.dart';
-import 'package:app/Features/Home/data/all_product_model.dart';
-import 'package:app/Features/Home/data/product_catgory_model.dart';
+import 'package:app/Features/Home/data/models/all_product_model.dart';
+import 'package:app/Features/Home/data/models/product_catgory_model.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:app/core/Errors/execption.dart';
 import 'package:app/core/network/APi_consumer.dart';
@@ -12,14 +13,14 @@ import 'package:app/core/network/cachehelper.dart';
 import 'package:app/core/network/endpoints.dart';
 
 class ProductCubit extends Cubit<ProductState> {
-  ProductCubit(super.initialState, this.authRepo);
+  ProductCubit(super.initialState, this.homeRepo);
 
-  final AuthRepo authRepo;
+  final HomeRepo homeRepo;
   ProductList? productList;
   ProductListCatgory? productListCatgory;
   getProduct({id}) async {
     emit(ProductLoading());
-    final response = await authRepo.getProduct(id);
+    final response = await homeRepo.getProduct(id);
 
     response.fold(
       ((errorMessga) => emit(ProductError(message: errorMessga))),
@@ -29,7 +30,7 @@ class ProductCubit extends Cubit<ProductState> {
 
   getBrandProduct() async {
     emit(ProductBrandLoading());
-    final response = await authRepo.getBrands();
+    final response = await homeRepo.getBrands();
 
     response.fold(
       ((errorMessga) => emit(ProductBrandError(message: errorMessga))),
@@ -50,7 +51,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(ProductAllLoading());
     }
 
-    final response = await authRepo.getAllProduct(limit: limit, skip: skip);
+    final response = await homeRepo.getAllProduct(limit: limit, skip: skip);
 
     response.fold(
       ((errorMessga) => emit(ProductAllError(message: errorMessga))),
@@ -70,12 +71,12 @@ class ProductCubit extends Cubit<ProductState> {
 }
 
 class catgoryCubit extends Cubit<CatgoryState> {
-  catgoryCubit(super.initialState, this.authRepo);
+  catgoryCubit(super.initialState, this.homeRepo);
 
-  final AuthRepo authRepo;
+  final HomeRepo homeRepo;
   getProductCatgoru({name}) async {
     emit(ProductCatgroyLoading());
-    final response = await authRepo.getProductCatgory(id: name);
+    final response = await homeRepo.getProductCatgory(id: name);
 
     response.fold(
       ((errorMessga) => emit(ProductCatgroyError(message: errorMessga))),

@@ -1,8 +1,12 @@
+import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
+import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubit.dart';
+import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:app/Features/Home/persention/view/screen/cart/cart_added_page.dart';
-import 'package:app/Features/Home/persention/view/screen/favorite_page/favorite_page.dart';
+import 'package:app/Features/Cart/Persention/view/Screen/cart/cart_page.dart';
+import 'package:app/Features/Favorite/Persention/View/Screen/favorite_page/favorite_page.dart';
 import 'package:app/Features/Home/persention/view/screen/home_page/home_page.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/colors.dart';
@@ -15,8 +19,31 @@ class NavgiateBarWidget extends StatefulWidget {
 }
 
 class _NavgiateBarWidgetState extends State<NavgiateBarWidget> {
+  late final List<Widget> pages = [
+    HomePage(),
+    BlocProvider(
+      create: (context) => sl<cartCubit>()..getCart(),
+      child: CartPage(),
+    ),
+    BlocProvider(
+      create: (context) => sl<getFavoriteCubit>()..getfav(),
+      child: FavoritePage(),
+    ),
+  ];
+  Widget getcurrent() {
+    switch (index) {
+      case 0:
+        return HomePage();
+      case 1:
+        return CartPage();
+      case 2:
+        return FavoritePage();
+      default:
+        return HomePage();
+    }
+  }
+
   int index = 0;
-  final pages = [HomePage(), CartAddedPage(), FavoritePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +122,7 @@ class _NavgiateBarWidgetState extends State<NavgiateBarWidget> {
           ],
         ),
       ),
-      body: pages[index],
+      body: IndexedStack(children: pages, index: index),
     );
   }
 }

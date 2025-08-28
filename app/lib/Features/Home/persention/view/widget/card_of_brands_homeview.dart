@@ -3,8 +3,11 @@ import 'package:app/Features/Home/persention/view/widget/catogry_card.dart';
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
+import 'package:app/Features/product_by_brands/Persention/vm/product_by_brands_cubit.dart';
 import 'package:app/core/Router/appRouter.dart';
 import 'package:app/core/services/services_locator.dart';
+import 'package:app/core/widgets/custom_error_widget.dart';
+import 'package:app/core/widgets/shammar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,8 +22,6 @@ class CardOfBrandsHomeview extends StatelessWidget {
   final scrollDirction;
   final hieght;
   final colum;
-  final productbyBrndsCubit = sl<BrandProdctCubit>();
-  final brandsCubit = sl<BrandsCubit>();
   @override
   @override
   Widget build(BuildContext context) {
@@ -53,9 +54,17 @@ class CardOfBrandsHomeview extends StatelessWidget {
             crossAxisCount: colum,
           );
         } else if (state is ProductBrandsLoading) {
-          return Center(child: CircularProgressIndicator());
+          return GridViewProduct(
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              return BrandsShimmer();
+            },
+            scrollDir: scrollDirction,
+            hieght: hieght,
+            crossAxisCount: colum,
+          );
         } else if (state is ProductBrandsError) {
-          return Text(state.message.errMessage);
+          return CustomErrorWidget(errorMessage: state.message.errMessage);
         } else {
           return SizedBox.shrink();
         }

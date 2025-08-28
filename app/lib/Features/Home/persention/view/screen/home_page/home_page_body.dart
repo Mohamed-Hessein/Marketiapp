@@ -11,7 +11,7 @@ import 'package:app/core/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:app/Features/Home/data/all_product_model.dart';
+import 'package:app/Features/Home/data/models/all_product_model.dart';
 import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
 import 'package:app/Features/Home/persention/view/widget/Row_view_all.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
@@ -99,16 +99,6 @@ class HomePageBody extends StatelessWidget {
                 scrollDirction: Axis.horizontal,
               ),
             ),
-
-            RowViewAll(
-              text: 'Best For You',
-              onTap: () {
-                Navigator.pushNamed(context, Approuter.bestForYou);
-              },
-              text2: 'View all',
-            ),
-
-            SizedBox(height: 15.h),
           ],
         ),
       ),

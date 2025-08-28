@@ -1,11 +1,14 @@
 import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
 import 'package:app/Features/Home/persention/view/widget/catogry_card.dart';
-import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
+import 'package:app/Features/product_by_catgroy/Persention/view/Screens/catgory_product/vm/catgroy_product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:app/core/Router/appRouter.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/services/services_locator.dart';
+import 'package:app/core/widgets/catgroy_shimmr_girdview.dart';
+import 'package:app/core/widgets/custom_error_widget.dart';
+import 'package:app/core/widgets/shammar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,9 +51,9 @@ class GridCtagoryWidget extends StatelessWidget {
             crossAxisCount: 2,
           );
         } else if (state is ProductCatgroyLoading) {
-          return Center(child: CircularProgressIndicator());
+          return GridCatgroyShimmer(height: height, scrollDI: scrollDI);
         } else if (state is ProductCatgroyError) {
-          return Text(state.message);
+          return CustomErrorWidget(errorMessage: state.message);
         } else {
           return SizedBox.shrink();
         }

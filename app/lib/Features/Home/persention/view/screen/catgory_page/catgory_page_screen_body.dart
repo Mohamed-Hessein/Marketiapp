@@ -1,8 +1,9 @@
 import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
+import 'package:app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:app/Features/Home/data/product_catgory_model.dart';
+import 'package:app/Features/Home/data/models/product_catgory_model.dart';
 import 'package:app/Features/Home/persention/view/widget/GridProductView.dart';
 import 'package:app/Features/Home/persention/view/widget/catogry_card.dart';
 import 'package:app/Features/Home/persention/view/widget/custom_search_textfield.dart';
@@ -43,49 +44,54 @@ class CatgoryPageScreenBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, Approuter.catgroyProduct);
-                  },
-                  child: BlocConsumer<catgoryCubit, CatgoryState>(
-                    listener: (context, state) {
-                      // TODO: implement listener
-                    },
-                    builder: (context, state) {
-                      if (state is ProductCatgroySuecss) {
-                        return GridViewProduct(
-                          itemBuilder: (context, index) {
-                            final catgroy = state.product[index];
-                            final image = catgroy.image;
-                            return CatgoryWidget(
-                              colum: Image.network(image!),
-                              onTap: () {
-                                //   catgorproudctubit.getCatgroyPRoduct(name: catgroy.name);
-                                Navigator.pushNamed(
-                                  context,
-                                  Approuter.catgroyProduct,
-                                  arguments: catgroy.name,
-                                );
-                              },
-                            );
-                          },
-                          hieght: 810.h,
-                          scrollDir: Axis.vertical,
-                          itemCount: state.product.length,
-                          crossAxisCount: 2,
-                        );
-                      } else if (state is ProductCatgroyLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is ProductCatgroyError) {
-                        return Text(state.message);
-                      } else {
-                        return SizedBox.shrink();
-                      }
-                    },
-                  ),
-                ),
               ],
             ),
+          ),
+          BlocConsumer<catgoryCubit, CatgoryState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              if (state is ProductCatgroySuecss) {
+                return SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: state.product.length,
+                    (context, index) {
+                      final catgroy = state.product[index];
+                      final image = catgroy.image;
+                      return CatgoryWidget(
+                        colum: Image.network(image!),
+                        onTap: () {
+                          //   catgorproudctubit.getCatgroyPRoduct(name: catgroy.name);
+                          Navigator.pushNamed(
+                            context,
+                            Approuter.catgroyProduct,
+                            arguments: catgroy.name,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 10,
+                    mainAxisExtent: 250.h,
+                  ),
+                );
+              } else if (state is ProductCatgroyLoading) {
+                return SliverToBoxAdapter(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              } else if (state is ProductCatgroyError) {
+                return SliverToBoxAdapter(
+                  child: CustomErrorWidget(errorMessage: state.message),
+                );
+              } else {
+                return SliverToBoxAdapter(child: SizedBox.shrink());
+              }
+            },
           ),
         ],
       ),

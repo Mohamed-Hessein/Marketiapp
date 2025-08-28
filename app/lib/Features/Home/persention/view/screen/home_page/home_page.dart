@@ -1,5 +1,8 @@
+import 'package:app/Features/Profile/Persention/vm/image_cubit.dart';
+import 'package:app/Features/Profile/Persention/vm/image_state.dart';
 import 'package:app/core/Router/appRouter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:app/Features/Home/persention/view/screen/home_page/home_page_body.dart';
@@ -20,7 +23,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Hi, Mohamed", style: AppTextSyles.textpopns20color),
+        title: BlocBuilder<ProfileCubit, ProfileState>(
+          builder: (context, state) {
+            if (state is ProfileStateSuecss) {
+              return Text(
+                "Hi, ${state.product.name}",
+                style: AppTextSyles.textpopns20color,
+              );
+            } else {
+              return SizedBox.shrink();
+            }
+          },
+        ),
         actions: [
           SizedBox(width: 6.w),
           SizedBox(
@@ -64,14 +78,22 @@ class _HomePageState extends State<HomePage> {
                         child: Image(image: AssetImage(ImageManager.earPods)),
                       ),
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          'Welcome',
-                          style: AppTextSyles.textpopns16Sreachcolor,
-                        ),
-                        Text('Mohamed'),
-                      ],
+                    BlocBuilder<ProfileCubit, ProfileState>(
+                      builder: (context, state) {
+                        if (state is ProfileStateSuecss) {
+                          return Column(
+                            children: [
+                              Text(
+                                'Welcome',
+                                style: AppTextSyles.textpopns16Sreachcolor,
+                              ),
+                              Text('${state.product.name}'),
+                            ],
+                          );
+                        } else {
+                          return SizedBox.shrink();
+                        }
+                      },
                     ),
                     SvgPicture.asset(ImageManager.closeIcon),
                   ],

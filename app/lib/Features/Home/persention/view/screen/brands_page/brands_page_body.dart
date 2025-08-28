@@ -1,8 +1,10 @@
-import 'package:app/Features/Home/data/brands_model.dart';
+import 'package:app/Features/Home/data/models/brands_model.dart';
 import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
 import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/widgets/brands_shimmer_Grid_view.dart';
+import 'package:app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,45 +46,58 @@ class BrandsPageBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                BlocConsumer<BrandsCubit, BrandsState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
-                  builder: (context, state) {
-                    if (state is ProductBrandsSuecss) {
-                      return GridViewProduct(
-                        itemCount: state.product.length,
-                        itemBuilder: (context, index) {
-                          final brands = state.product[index];
-
-                          return CatgoryBrandsWidget(
-                            colum: brands.emoji,
-                            onTap: () {
-                              // productbyBrndsCubit.getBrandPRoduct(name: brands.name);
-                              Navigator.pushNamed(
-                                context,
-                                Approuter.brandProduct,
-                                arguments: brands.name,
-                              );
-                            },
-                            title: "${brands.name}",
-                          );
-                        },
-                        scrollDir: Axis.vertical,
-                        hieght: 810.h,
-                        crossAxisCount: 2,
-                      );
-                    } else if (state is ProductBrandsLoading) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (state is ProductBrandsError) {
-                      return Text(state.message.errMessage);
-                    } else {
-                      return SizedBox.shrink();
-                    }
-                  },
-                ),
               ],
             ),
+          ),
+          BlocConsumer<BrandsCubit, BrandsState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              if (state is ProductBrandsSuecss) {
+                return SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: state.product.length,
+                    (context, index) {
+                      final brands = state.product[index];
+                      final image = brands.emoji;
+                      return CatgoryBrandsWidget(
+                        title: brands.name,
+                        colum: brands.emoji,
+                        onTap: () {
+                          //   catgorproudctubit.getCatgroyPRoduct(name: catgroy.name);
+                          Navigator.pushNamed(
+                            context,
+                            Approuter.brandProduct,
+                            arguments: brands.name,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 10,
+                    mainAxisExtent: 250.h,
+                  ),
+                );
+              } else if (state is ProductBrandsLoading) {
+                return BrandsShimmerGridView(
+                  scrollDI: Axis.vertical,
+                  height: 810.h,
+                );
+              } else if (state is ProductBrandsError) {
+                return SliverToBoxAdapter(
+                  child: CustomErrorWidget(
+                    errorMessage: state.message.errMessage,
+                  ),
+                );
+              } else {
+                return SliverToBoxAdapter(child: SizedBox.shrink());
+              }
+            },
           ),
         ],
       ),

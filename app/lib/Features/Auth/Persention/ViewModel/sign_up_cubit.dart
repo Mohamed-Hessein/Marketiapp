@@ -91,4 +91,14 @@ class Signupcubit extends Cubit<Signupstate> {
       (actvecode) => emit(ChangePassLSecuess()),
     );
   }
+
+  // Future<void> close() {
+  //   signUpEmail.dispose();
+
+  //   signUpName.dispose();
+  //   signUpPassword.dispose();
+
+  //   signUpPhoneNumber.dispose();
+  //   return super.close();
+  // }
 }

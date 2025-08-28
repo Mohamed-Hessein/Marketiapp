@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageCubit extends Cubit<ImageState> {
-  ImageCubit(super.initialState, this.authRepo);
+  ImageCubit(super.initialState, this.profileRepo);
   XFile? image;
-  final AuthRepo authRepo;
+  final ProfileRepo profileRepo;
   uploadimage(XFile pikcec) async {
     image = pikcec;
     emit(ImageStateLoading());
-    final response = await authRepo.uploadImage(pikcec!);
+    final response = await profileRepo.uploadImage(pikcec);
 
     response.fold(
       ((errorMessga) => emit(ImageStateError(message: errorMessga))),

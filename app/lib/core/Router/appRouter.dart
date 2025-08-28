@@ -1,25 +1,28 @@
 import 'package:app/Features/Auth/Persention/ViewModel/sign_up_cubit.dart';
 import 'package:app/Features/Auth/Persention/ViewModel/sign_up_state.dart';
 import 'package:app/Features/Auth/data/Repo/Auth_repo.dart';
-import 'package:app/Features/Home/persention/view/screen/brand_product/brand_product.dart';
-import 'package:app/Features/Home/persention/view/screen/cart/cart_added_page.dart';
-import 'package:app/Features/Home/persention/view/screen/catgory_product/catgory_product.dart';
-import 'package:app/Features/Home/persention/view/screen/favorite_page/favorite_page.dart';
+import 'package:app/Features/Profile/Persention/vm/image_cubit.dart';
+import 'package:app/Features/Search/data/repo/search_repo.dart';
+import 'package:app/Features/product_by_brands/Persention/view/screens/brand_product/brand_product.dart';
+import 'package:app/Features/Cart/Persention/view/Screen/cart/cart_page.dart';
+import 'package:app/Features/product_by_brands/Persention/vm/product_by_brands_cubit.dart';
+import 'package:app/Features/product_by_catgroy/Persention/view/Screens/catgory_product/catgory_product.dart';
+import 'package:app/Features/Favorite/Persention/View/Screen/favorite_page/favorite_page.dart';
 import 'package:app/Features/Home/persention/view/screen/home_page/home_page.dart';
 import 'package:app/Features/Home/persention/view/screen/home_page/home_page_body.dart';
 import 'package:app/Features/Home/persention/view_model/brand_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/brand_product_state.dart';
-import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/cart_cubit/cart_state.dart';
-import 'package:app/Features/Home/persention/view_model/catgroy_product_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/catgroy_product_state.dart';
-import 'package:app/Features/Home/persention/view_model/details_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/details_state.dart';
-import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_cubit.dart';
-import 'package:app/Features/Home/persention/view_model/favorite_cubit/favorite_state.dart';
+import 'package:app/Features/product_by_brands/Persention/vm/brand_product_state.dart';
+import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
+import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_state.dart';
+import 'package:app/Features/product_by_catgroy/Persention/view/Screens/catgory_product/vm/catgroy_product_cubit.dart';
+import 'package:app/Features/product_by_catgroy/Persention/view/Screens/catgory_product/vm/catgroy_product_state.dart';
+import 'package:app/Features/details/Persention/vm/details_cubit.dart';
+import 'package:app/Features/details/Persention/vm/details_state.dart';
+import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubit.dart';
+import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
-import 'package:app/Features/Home/persention/view_model/search_cubit.dart';
+import 'package:app/Features/Search/Persention/vm/search_cubit.dart';
 import 'package:app/Features/Profile/Persention/view/screen/profile.dart';
 import 'package:app/core/network/Dio_consumer.dart';
 import 'package:app/core/services/services_locator.dart';
@@ -33,10 +36,9 @@ import 'package:app/Features/Auth/Persention/view/Screen/get_code/enter_code.dar
 import 'package:app/Features/Auth/Persention/view/Screen/get_code/enter_code_by_email.dart';
 import 'package:app/Features/Auth/Persention/view/Screen/forgot_password/forgot_Password.dart';
 import 'package:app/Features/Auth/Persention/view/Screen/forgot_password/forgot_password_by_email.dart';
-import 'package:app/Features/Home/persention/view/screen/best_for_you_page/best_for_you.dart';
 import 'package:app/Features/Home/persention/view/screen/brands_page/brands_pages.dart';
-import 'package:app/Features/Home/persention/view/screen/product_details/product_details_page.dart';
-import 'package:app/Features/Home/persention/view/screen/search_page/catgory_Page.dart';
+import 'package:app/Features/details/Persention/view/Screen/product_details/product_details_page.dart';
+import 'package:app/Features/Search/Persention/view/Screen/search_page/Search_page.dart';
 import 'package:app/Features/Home/persention/view/screen/catgory_page/catgory_page_screen.dart';
 import 'package:app/Features/Home/persention/view/screen/empty_cart_page/empty_cart.dart';
 import 'package:app/Features/Home/persention/view/screen/product_page/product_page.dart';
@@ -102,27 +104,17 @@ class Approuter {
         return MaterialPageRoute(builder: (_) => const Congr());
       case homePage:
         return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
+          builder: (context) => MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => ProductCubit(
-                  Productinital(),
-                  AuthRepo(DioConsumer(dio: Dio())),
-                )..getProduct(),
-              ),
+              BlocProvider(create: (_) => sl<ProductCubit>()..getProduct()),
 
-              BlocProvider(
-                create: (context) => SearchCubit(
-                  Searchlinital(),
-                  AuthRepo(DioConsumer(dio: Dio())),
-                )..Search(),
-              ),
+              BlocProvider(create: (_) => sl<ProfileCubit>()..getProfileData()),
             ],
             child: NavgiateBarWidget(),
           ),
         );
       case catogroy:
-        return MaterialPageRoute(builder: (_) => const CatgoryPage());
+        return MaterialPageRoute(builder: (_) => const SearchPage());
       case catgroyProduct:
         final catgroy = settings.arguments as String;
         return MaterialPageRoute(
@@ -140,14 +132,10 @@ class Approuter {
           settings: settings,
         );
       case emptyCart:
+        final id = settings.arguments as dynamic;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-                cartCubit(cartlinital(), AuthRepo(DioConsumer(dio: Dio())))
-                  ..getCart(),
-
-            child: const CartAddedPage(),
-          ),
+          settings: settings,
+          builder: (context) => CartPage(id: id),
         );
       case catgorPage:
         return MaterialPageRoute(
@@ -163,8 +151,6 @@ class Approuter {
             child: const BrandsPages(),
           ),
         );
-      case bestForYou:
-        return MaterialPageRoute(builder: (_) => const BestForYou());
       case addCatgoryPage:
         return MaterialPageRoute(builder: (_) => const ProductDetailsPage());
       case details:
@@ -178,15 +164,10 @@ class Approuter {
         );
 
       case favoritepage:
+        final id = settings.arguments as dynamic;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getFavoriteCubit(
-              Favoritelinital(),
-              AuthRepo(DioConsumer(dio: Dio())),
-            )..getfav(),
-
-            child: FavoritePage(),
-          ),
+          settings: settings,
+          builder: (context) => FavoritePage(id: id),
         );
       case brandProduct:
         final brands = settings.arguments as String;
@@ -201,13 +182,11 @@ class Approuter {
 
       case search:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => SearchCubit(
-              Searchlinital(),
-              AuthRepo(DioConsumer(dio: Dio()))..SearchPost(),
-            ),
+          settings: settings,
+          builder: (context) => BlocProvider(
+            create: (_) => sl<SearchCubit>(),
 
-            child: const CatgoryPage(),
+            child: SearchPage(),
           ),
         );
       case profile:

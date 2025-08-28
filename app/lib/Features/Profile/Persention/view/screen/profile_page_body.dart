@@ -6,6 +6,7 @@ import 'package:app/Features/Profile/Persention/view/widgets/Row_options_profile
 import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/services/services_locator.dart';
 import 'package:app/core/theme/styles.dart';
+import 'package:app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +47,6 @@ class ProfilePageBody extends StatelessWidget {
                             BlocBuilder<ImageCubit, ImageState>(
                               bloc: sl<ImageCubit>(),
                               builder: (context, state) {
-                                final cubit = sl<ImageCubit>();
                                 return Positioned(
                                   top:
                                       MediaQuery.of(context).size.height * .063,
@@ -55,17 +55,21 @@ class ProfilePageBody extends StatelessWidget {
                                   child: SizedBox(
                                     height: 120.h,
                                     width: 120.h,
-                                    child: cubit.image == null
-                                        ? CircleAvatar(
-                                            child: Image.network(profile.image),
-                                          )
-                                        : SizedBox(
+                                    child: sl<ImageCubit>().image != null
+                                        ? SizedBox(
                                             height: 120.h,
                                             width: 120.w,
                                             child: CircleAvatar(
                                               backgroundImage: FileImage(
-                                                File(cubit.image!.path),
+                                                File(
+                                                  sl<ImageCubit>().image!.path,
+                                                ),
                                               ),
+                                            ),
+                                          )
+                                        : CircleAvatar(
+                                            child: Image.network(
+                                              "${profile.image}",
                                             ),
                                           ),
                                   ),
@@ -81,9 +85,9 @@ class ProfilePageBody extends StatelessWidget {
                                   ImagePicker()
                                       .pickImage(source: ImageSource.gallery)
                                       .then(
-                                        (value) => context
-                                            .read<ImageCubit>()
-                                            .uploadimage(value!),
+                                        (value) => sl<ImageCubit>().uploadimage(
+                                          value!,
+                                        ),
                                       );
                                 },
                                 child: SvgPicture.asset(
@@ -119,7 +123,7 @@ class ProfilePageBody extends StatelessWidget {
         } else if (state is ProfileStateLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is ProfileStateError) {
-          return Text(state.message.errMessage);
+          return CustomErrorWidget(errorMessage: state.message.errMessage);
         } else {
           return SizedBox.shrink();
         }

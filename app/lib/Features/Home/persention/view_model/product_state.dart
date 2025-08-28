@@ -1,9 +1,9 @@
-import 'package:app/Features/Home/data/all_product_model.dart';
-import 'package:app/Features/Home/data/brands_model.dart';
-import 'package:app/Features/Home/data/brands_models.dart';
-import 'package:app/Features/Home/data/catgory_model.dart';
-import 'package:app/Features/Home/data/product_catgory_model.dart';
-import 'package:app/Features/Home/data/serachModel.dart';
+import 'package:app/Features/Home/data/models/all_product_model.dart';
+import 'package:app/Features/Home/data/models/brands_model.dart';
+import 'package:app/Features/Home/data/models/brands_by_names_models.dart';
+import 'package:app/Features/Home/data/models/catgory_model.dart';
+import 'package:app/Features/Home/data/models/product_catgory_model.dart';
+import 'package:app/Features/Search/data/model/serachModel.dart';
 import 'package:app/core/Errors/ErrorModel.dart';
 
 class ProductState {}
