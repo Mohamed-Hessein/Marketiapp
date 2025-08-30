@@ -10,6 +10,7 @@ import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubi
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_state.dart';
 import 'package:app/Features/Search/Persention/vm/search_cubit.dart';
 import 'package:app/core/services/services_locator.dart';
+import 'package:app/core/theme/theme_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,32 +30,46 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
   initsetup();
-  runApp(const MyApp());
+  runApp(BlocProvider(create: (context) => themeCubit(), child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(375, 812),
-      minTextAdapt: true,
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: Approuter.generateRoute,
-          theme: ThemeData.light(useMaterial3: true).copyWith(
-            scaffoldBackgroundColor: Colors.white,
-            shadowColor: Color(0xFFB2CCFF),
-            cardTheme: CardThemeData().copyWith(
-              shadowColor: Constants.Textfeildborder,
-            ),
-          ),
-          initialRoute: Approuter.splash,
+    // This widget is the root o
+
+    return BlocBuilder<themeCubit, ThemeMode>(
+      builder: (context, state) {
+        return ScreenUtilInit(
+          designSize: Size(375, 812),
+          minTextAdapt: true,
+          builder: (context, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              onGenerateRoute: Approuter.generateRoute,
+              theme: ThemeData.light(),
+              darkTheme: ThemeData.dark(),
+              themeMode: state,
+              initialRoute: Approuter.splash,
+            );
+          },
         );
       },
     );
   }
 }
+
+// ThemeData.light(useMaterial3: true).copyWith(
+//             scaffoldBackgroundColor: Colors.white,
+//             shadowColor: Color(0xFFB2CCFF),
+//             cardTheme: CardThemeData().copyWith(
+//               shadowColor: Constants.Textfeildborder,
+//             ),
+//           ),

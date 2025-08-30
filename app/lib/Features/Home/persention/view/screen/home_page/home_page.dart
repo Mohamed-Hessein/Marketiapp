@@ -1,6 +1,7 @@
 import 'package:app/Features/Profile/Persention/vm/image_cubit.dart';
 import 'package:app/Features/Profile/Persention/vm/image_state.dart';
 import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             if (state is ProfileStateSuecss) {
               return Text(
                 "Hi, ${state.product.name}",
-                style: AppTextSyles.textpopns20color,
+                style: Theme.of(context).appBarTheme.toolbarTextStyle,
               );
             } else {
               return SizedBox.shrink();
@@ -41,85 +42,27 @@ class _HomePageState extends State<HomePage> {
             height: 35.h,
             width: 35.w,
 
-            child: SvgPicture.asset(ImageManager.bellIcon),
+            child: AppSvgIcon(assetName: ImageManager.bellIcon),
           ),
         ],
         leading: Builder(
           builder: (context) {
             return IconButton(
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Navigator.pushNamed(context, Approuter.profile);
               },
               icon: SizedBox(
                 height: 40.h,
                 width: 40.h,
                 child: CircleAvatar(
-                  child: Image(image: AssetImage(ImageManager.earPods)),
+                  child: Image(image: AssetImage(ImageManager.avatr)),
                 ),
               ),
             );
           },
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            SizedBox(
-              width: 273.w,
-              height: 112.h,
-              child: DrawerHeader(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      height: 40.h,
-                      width: 40.h,
-                      child: CircleAvatar(
-                        child: Image(image: AssetImage(ImageManager.earPods)),
-                      ),
-                    ),
-                    BlocBuilder<ProfileCubit, ProfileState>(
-                      builder: (context, state) {
-                        if (state is ProfileStateSuecss) {
-                          return Column(
-                            children: [
-                              Text(
-                                'Welcome',
-                                style: AppTextSyles.textpopns16Sreachcolor,
-                              ),
-                              Text('${state.product.name}'),
-                            ],
-                          );
-                        } else {
-                          return SizedBox.shrink();
-                        }
-                      },
-                    ),
-                    SvgPicture.asset(ImageManager.closeIcon),
-                  ],
-                ),
-              ),
-            ),
 
-            ListTile(
-              title: Text(
-                'Account Settings',
-                style: AppTextSyles.textpopns18color,
-              ),
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Approuter.profile);
-                },
-                icon: SvgPicture.asset(
-                  ImageManager.settinIcon,
-                  height: 24.h,
-                  width: 24.w,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: HomePageBody(),
     );
   }

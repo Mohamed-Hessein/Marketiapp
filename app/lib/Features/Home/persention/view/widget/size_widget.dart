@@ -1,3 +1,4 @@
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,12 +22,7 @@ class _SelectSizeState extends State<SelectSize> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(width: 15.w),
-            Text(
-              "Select Size",
-              style: AppTextSyles.textpopns16color.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
-            ),
+            Text("Select Size", style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         Row(
@@ -66,15 +62,14 @@ class _SelectSizeState extends State<SelectSize> {
                               Text(
                                 '2',
                                 style: isClicked
-                                    ? AppTextSyles.textpopns24wcolor
-                                    : AppTextSyles.textpopns24owcolor,
+                                    ? Theme.of(context).textTheme.labelLarge
+                                    : Theme.of(context).textTheme.labelLarge,
                               ),
 
                               if (isClicked)
-                                SvgPicture.asset(
-                                  ImageManager.vectorTrue,
-                                  width: 14.w,
-                                  height: 14.h,
+                                AppSvgIcon(
+                                  assetName: ImageManager.vectorTrue,
+                                  size: 14.w,
                                 ),
                             ],
                           ),

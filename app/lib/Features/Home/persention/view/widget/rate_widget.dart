@@ -39,7 +39,7 @@ class RateWidget extends StatelessWidget {
           Flexible(
             child: Text(
               '($rate)',
-              style: AppTextSyles.textpopns12BlueforgotColor,
+              style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:app/Features/Cart/Persention/widgets/custom_text_button.dart';
 import 'package:app/Features/Favorite/Persention/View/widget/fav_icon.dart';
 import 'package:app/Features/Home/data/models/all_product_model.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
@@ -24,8 +25,28 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/colors.dart';
 import 'package:app/core/theme/styles.dart';
 
-class CatgoryProductBody extends StatelessWidget {
+class CatgoryProductBody extends StatefulWidget {
   CatgoryProductBody({super.key});
+
+  @override
+  State<CatgoryProductBody> createState() => _CatgoryProductBodyState();
+}
+
+class _CatgoryProductBodyState extends State<CatgoryProductBody> {
+  bool isLoadMore = false;
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        context.read<CatgroyProductCubit>().getCatgroyPRoduct(isLoadMOre: true);
+      }
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -37,6 +58,7 @@ class CatgoryProductBody extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(top: 14.h),
         child: CustomScrollView(
+          controller: scrollController,
           scrollDirection: Axis.vertical,
           slivers: [
             SliverToBoxAdapter(
@@ -92,26 +114,7 @@ class CatgoryProductBody extends StatelessWidget {
                             (p) => p.id == product.id,
                           );
                           return cardAddProduct(
-                            button: SizedBox(
-                              width: 124.w,
-                              height: 38.h,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  fixedSize: Size(10, 7),
-
-                                  side: BorderSide(
-                                    color: Constants.Textfeildborder,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  sl<cartCubit>().AddCart(name: product.id);
-                                },
-                                child: Text(
-                                  'Add',
-                                  style: AppTextSyles.textpopns14bcolor,
-                                ),
-                              ),
-                            ),
+                            button: CustomTextButton(id: product.id),
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
@@ -119,11 +122,12 @@ class CatgoryProductBody extends StatelessWidget {
                                 arguments: product.id,
                               );
                             },
+                            rating: product.rating,
                             title: product.title,
                             realImage: product.images[0],
                             price: product.price,
 
-                            image: FavroiteIcon(name: product.id, isFAv: isFAv),
+                            image: FavroiteIcon(id: product.id),
                           );
                         },
                       ),
@@ -154,5 +158,12 @@ class CatgoryProductBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }

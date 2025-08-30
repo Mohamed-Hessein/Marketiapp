@@ -3,6 +3,7 @@ import 'package:app/Features/Profile/Persention/vm/image_cubit.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/services/services_locator.dart';
 import 'package:app/core/theme/styles.dart';
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,32 +18,34 @@ class Profile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: SvgPicture.asset(
-                ImageManager.backArrow,
-                width: 45.w,
-                height: 45.h,
-              ),
-            ),
 
-            Text("MyProfile", style: AppTextSyles.textpopns20color),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: SvgPicture.asset(
-                ImageManager.cartNoti,
-                width: 30.w,
-                height: 30.h,
-              ),
-            ),
+        title: Row(
+          children: [
+            Spacer(flex: 2),
+            // SizedBox(width: 45.w),
+            Text("My Profile"),
+            Spacer(flex: 3),
           ],
+        ),
+        leading: SizedBox(
+          height: 80.h,
+          width: 80.w,
+          child: Row(
+            children: [
+              SizedBox(width: 20.h),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: SizedBox(
+                  height: 30.h,
+                  width: 30.w,
+                  child: AppSvgIcon(assetName: ImageManager.backArrow),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: BlocProvider(

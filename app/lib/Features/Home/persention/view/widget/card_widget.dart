@@ -1,3 +1,4 @@
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,12 +14,14 @@ class cardProduct extends StatelessWidget {
     this.realImage,
     this.title,
     required this.price,
+    this.rating,
   });
   final Function() onTap;
   final image;
   final realImage;
   final title;
   final double price;
+  final rating;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,10 +29,10 @@ class cardProduct extends StatelessWidget {
       child: Stack(
         children: [
           SizedBox(
-            height: 184.h,
+            height: 190.h,
             width: 180.w,
             child: Card(
-              color: Colors.white,
+              color: Theme.of(context).cardTheme.color,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadiusGeometry.circular(14),
               ),
@@ -56,27 +59,25 @@ class cardProduct extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "$price",
-                          style: AppTextSyles.textpopns12BlueforgotColor,
-                        ),
+                        Text("$price", style: TextStyle(fontSize: 10)),
                         SizedBox(width: 53),
-                        SvgPicture.asset(
-                          ImageManager.starIcon,
-                          height: 20.h,
-                          width: 20.w,
+                        AppSvgIcon(
+                          assetName: ImageManager.starIcon,
+                          size: 20.h,
                         ),
-                        Text(
-                          '4.9',
-                          style: AppTextSyles.textpopns12BlueforgotColor,
-                        ),
+                        Text('$rating', style: TextStyle(fontSize: 10)),
                       ],
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 9),
                       child: Row(
                         children: [
-                          Text('$title', style: TextStyle(fontSize: 8)),
+                          Flexible(
+                            child: Text(
+                              '$title',
+                              style: TextStyle(fontSize: 8),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -89,11 +90,7 @@ class cardProduct extends StatelessWidget {
           Positioned(
             right: MediaQuery.of(context).size.height * .022,
             top: MediaQuery.of(context).size.height * .0165,
-            child: SvgPicture.asset(
-              ImageManager.heartIcon,
-              height: 24.h,
-              width: 24.w,
-            ),
+            child: AppSvgIcon(assetName: ImageManager.heartIcon, size: 24.h),
           ),
         ],
       ),
@@ -110,6 +107,7 @@ class cardAddProduct extends StatelessWidget {
     this.title,
     required this.price,
     required this.button,
+    this.rating,
   });
   final Function() onTap;
   final dynamic image;
@@ -117,6 +115,7 @@ class cardAddProduct extends StatelessWidget {
   final title;
   final dynamic price;
   final Widget button;
+  final rating;
   bool isCliked = true;
   @override
   Widget build(BuildContext context) {
@@ -127,9 +126,9 @@ class cardAddProduct extends StatelessWidget {
           children: [
             SizedBox(
               height: 270.h,
-              width: 215.w,
+              width: 220.w,
               child: Card(
-                color: Colors.white,
+                color: Theme.of(context).cardTheme.color,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(14),
                 ),
@@ -159,17 +158,17 @@ class cardAddProduct extends StatelessWidget {
                           children: [
                             Text(
                               "$price",
-                              style: AppTextSyles.textpopns12BlueforgotColor,
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
-                            SizedBox(width: 60.w),
-                            SvgPicture.asset(
-                              ImageManager.starIcon,
-                              height: 20.h,
-                              width: 20.w,
+                            Spacer(flex: 2),
+                            AppSvgIcon(
+                              assetName: ImageManager.starIcon,
+                              size: 20.h,
                             ),
+                            SizedBox(width: 1.w),
                             Text(
-                              '4.9',
-                              style: AppTextSyles.textpopns12BlueforgotColor,
+                              '$rating',
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ],
                         ),
@@ -180,9 +179,9 @@ class cardAddProduct extends StatelessWidget {
                               child: Text(
                                 softWrap: true,
                                 maxLines: 1,
-                                overflow: TextOverflow.fade,
+                                overflow: TextOverflow.ellipsis,
                                 title,
-                                style: TextStyle(fontSize: 8.sp),
+                                style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ),
                           ],

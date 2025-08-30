@@ -8,7 +8,7 @@ class ProductDetails {
   final double rating;
   final int stock;
   final List<String> tags;
-  final String brand;
+  final dynamic brand;
   final String sku;
   final int weight;
   final Dimensions dimensions;

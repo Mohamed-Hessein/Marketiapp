@@ -1,4 +1,6 @@
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
+import 'package:app/Features/Cart/Persention/widgets/custom_text_button.dart';
+import 'package:app/Features/Favorite/Persention/View/widget/fav_icon.dart';
 import 'package:app/Features/details/Persention/vm/details_cubit.dart';
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubit.dart';
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_state.dart';
@@ -61,8 +63,8 @@ class _FavoritePageBodyState extends State<FavoritePageBody> {
                     child: Row(
                       children: [
                         Text(
-                          'Best For Uou',
-                          style: AppTextSyles.textpopns20color,
+                          'Favorites',
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
                     ),
@@ -102,53 +104,12 @@ class _FavoritePageBodyState extends State<FavoritePageBody> {
                               // cont.getDatils(id: product.id);
                               // Navigator.pushNamed(context, Approuter.details);
                             },
+                            rating: product.rating,
                             title: product.title,
                             realImage: product.images?[0],
                             price: product.price,
-                            image: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isFAv = !isFAv;
-                                });
-                                if (isFAv) {
-                                  sl<getFavoriteCubit>().DeleteFAvoriete(
-                                    name: product.id,
-                                  );
-                                } else {
-                                  sl<getFavoriteCubit>().AddFAvoriete(
-                                    name: product.id,
-                                  );
-                                }
-                              },
-                              child: SvgPicture.asset(
-                                isFAv
-                                    ? ImageManager.fillHeart
-                                    : ImageManager.heartIcon,
-                                height: 24.h,
-
-                                width: 24.w,
-                              ),
-                            ),
-                            button: SizedBox(
-                              width: 124.w,
-                              height: 38.h,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  fixedSize: Size(10, 7),
-
-                                  side: BorderSide(
-                                    color: Constants.Textfeildborder,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  sl<cartCubit>().AddCart(name: product.id);
-                                },
-                                child: Text(
-                                  'Add',
-                                  style: AppTextSyles.textpopns14bcolor,
-                                ),
-                              ),
-                            ),
+                            image: FavroiteIcon(id: product.id),
+                            button: CustomTextButton(id: product.id),
                           );
                         },
                       ),

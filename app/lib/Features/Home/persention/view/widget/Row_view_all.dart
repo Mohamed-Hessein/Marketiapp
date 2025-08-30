@@ -18,7 +18,7 @@ class RowViewAll extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(text, style: AppTextSyles.textpopns20color),
+          Text(text, style: Theme.of(context).textTheme.titleMedium),
 
           GestureDetector(
             onTap: onTap,

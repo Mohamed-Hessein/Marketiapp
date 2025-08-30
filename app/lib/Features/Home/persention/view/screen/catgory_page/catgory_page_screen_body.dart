@@ -1,4 +1,6 @@
 import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
+import 'package:app/core/widgets/brands_shimmer_Grid_view.dart';
+import 'package:app/core/widgets/catgroy_shimmr_girdview.dart';
 import 'package:app/core/widgets/custom_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +41,10 @@ class CatgoryPageScreenBody extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     children: [
-                      Text('Catgoryies', style: AppTextSyles.textpopns20color),
+                      Text(
+                        'Catgoryies',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       SizedBox(height: 4.h),
                     ],
                   ),
@@ -81,9 +86,7 @@ class CatgoryPageScreenBody extends StatelessWidget {
                   ),
                 );
               } else if (state is ProductCatgroyLoading) {
-                return SliverToBoxAdapter(
-                  child: Center(child: CircularProgressIndicator()),
-                );
+                return catgroyshimmer(scrollDI: Axis.vertical, height: 810.h);
               } else if (state is ProductCatgroyError) {
                 return SliverToBoxAdapter(
                   child: CustomErrorWidget(errorMessage: state.message),

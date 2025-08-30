@@ -27,3 +27,26 @@ class BrandsShimmerGridView extends StatelessWidget {
     );
   }
 }
+
+class catgroyshimmer extends StatelessWidget {
+  const catgroyshimmer({super.key, this.height, this.scrollDI});
+  final height;
+  final scrollDI;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(childCount: 20, (context, index) {
+        return ShimmerCatgoryCard();
+      }),
+
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 10,
+        mainAxisExtent: 250.h,
+      ),
+    );
+  }
+}

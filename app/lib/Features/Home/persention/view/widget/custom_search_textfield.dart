@@ -1,4 +1,5 @@
 import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,7 +21,7 @@ class CustomSearchTextfield extends StatelessWidget {
     this.onTap,
   });
   final String assetImagesuf;
-  final String assetImage;
+  final dynamic assetImage;
   final String hintText;
   Function(String)? onSubmitted;
   final double wigeth;
@@ -56,11 +57,7 @@ class CustomSearchTextfield extends StatelessWidget {
               width: 44.w,
               child: GestureDetector(
                 onTap: onTap,
-                child: SvgPicture.asset(
-                  assetImage,
-                  height: height,
-                  width: wigeth,
-                ),
+                child: AppSvgIcon(assetName: assetImage, size: height),
               ),
             ),
           ),

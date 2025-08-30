@@ -12,7 +12,7 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+
         leading: Row(
           children: [
             SizedBox(height: 20.h),
@@ -22,8 +22,8 @@ class SearchPage extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: SizedBox(
-                height: 45.h,
-                width: 45.w,
+                height: 35.h,
+                width: 35.w,
                 child: SvgPicture.asset(ImageManager.backArrow),
               ),
             ),

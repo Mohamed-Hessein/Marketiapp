@@ -126,5 +126,9 @@ class AuthRepo {
     }
   }
 
+  Logou() async {
+    await CacheHelper().clearData(key: ApiKeys.token);
+  }
+
   Future getProductCatgory({required id}) async {}
 }

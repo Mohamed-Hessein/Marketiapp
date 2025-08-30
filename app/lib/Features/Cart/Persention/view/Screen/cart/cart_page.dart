@@ -1,3 +1,5 @@
+import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,34 +15,34 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+
         title: Row(
           children: [
-            SizedBox(
-              height: 80.h,
-              width: 80.w,
-              child: Row(
-                children: [
-                  SizedBox(height: 20.h),
-                  SizedBox(width: 8.w),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: SizedBox(
-                      height: 40.h,
-                      width: 45.w,
-                      child: SvgPicture.asset(ImageManager.backArrow),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 38.w),
-            Row(
-              children: [Text("Phones", style: AppTextSyles.textpopns20color)],
-            ),
+            Spacer(flex: 2),
+            // SizedBox(width: 45.w),
+            Text("Cart"),
+            Spacer(flex: 3),
           ],
+        ),
+        leading: SizedBox(
+          height: 80.h,
+          width: 80.w,
+          child: Row(
+            children: [
+              SizedBox(width: 20.h),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Approuter.homePage);
+                },
+                child: SizedBox(
+                  height: 30.h,
+                  width: 30.w,
+                  child: AppSvgIcon(assetName: ImageManager.backArrow),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: CartPageBody(),

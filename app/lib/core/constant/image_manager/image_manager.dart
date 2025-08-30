@@ -90,7 +90,7 @@ class ImageManager {
   static const String fillCart = 'assets/images/Cart_Icon_Field (1).svg';
   static const String emptyCart = 'assets/images/Illustration_Cart_Empty.svg';
   static const String allBrands = 'assets/images/ImageBrands.jpg';
-  static const String earPods = 'assets/images/Round_Rect (2).png';
+  static const String avatr = 'assets/images/Avatar.png';
   static const String timeTwon = 'assets/images/Time_Icon_UIA.svg';
   static const String basketIcon =
       'assets/images/Minus&Plus&Trush_Icon_UIA.svg';
@@ -104,4 +104,8 @@ class ImageManager {
   static const String toggle = 'assets/images/Toggle_Icon.svg';
   static const String arrowSelected = 'assets/images/Arrow_Select.svg';
   static const String vectorProfile = 'assets/images/Shapes.svg';
+  static const String payment = 'assets/images/Credit_card_Icon_UIA.svg';
+  static const notifiaction = 'assets/images/Notification_Icon.svg';
+  static const account = 'assets/images/User_Icon (1).svg';
+  static const rateUs = 'assets/images/Rate_Icon.svg';
 }

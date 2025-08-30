@@ -1,6 +1,7 @@
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubit.dart';
 import 'package:app/core/services/services_locator.dart';
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,8 +26,11 @@ class _NavgiateBarWidgetState extends State<NavgiateBarWidget> {
       create: (context) => sl<cartCubit>()..getCart(),
       child: CartPage(),
     ),
-    BlocProvider(
-      create: (context) => sl<getFavoriteCubit>()..getfav(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => sl<getFavoriteCubit>()..getfav()),
+        BlocProvider(create: (context) => sl<cartCubit>()..getCart()),
+      ],
       child: FavoritePage(),
     ),
   ];
@@ -56,67 +60,44 @@ class _NavgiateBarWidgetState extends State<NavgiateBarWidget> {
           selectedIndex: index,
           onDestinationSelected: (index) => setState(() => this.index = index),
 
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor,
           height: 66,
 
           destinations: [
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: NavigationDestination(
-                icon: SvgPicture.asset(
-                  ImageManager.fillHome,
-                  width: 55.w,
-                  height: 55.h,
-                ),
+                icon: AppSvgIcon(assetName: ImageManager.fillHome, size: 55.w),
                 label: '',
-                selectedIcon: SvgPicture.asset(
-                  ImageManager.homeIcon,
-                  width: 55.w,
-                  height: 55.h,
+                selectedIcon: AppSvgIcon(
+                  assetName: ImageManager.homeIcon,
+                  size: 55.w,
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: NavigationDestination(
-                icon: SvgPicture.asset(
-                  ImageManager.cartIcon,
-                  width: 55.w,
-                  height: 55.h,
-                ),
+                icon: AppSvgIcon(assetName: ImageManager.cartIcon, size: 55.w),
                 label: '',
-                selectedIcon: SvgPicture.asset(
-                  ImageManager.fillCart,
-                  width: 55.w,
-                  height: 55.h,
+                selectedIcon: AppSvgIcon(
+                  assetName: ImageManager.fillCart,
+                  size: 55.w,
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: NavigationDestination(
-                icon: SvgPicture.asset(
-                  ImageManager.favoritueIcon,
-                  width: 55.w,
-                  height: 55.h,
+                icon: AppSvgIcon(
+                  assetName: ImageManager.favoritueIcon,
+                  size: 55.w,
                 ),
                 label: '',
-                selectedIcon: SvgPicture.asset(
-                  ImageManager.fillFavorite,
-                  width: 55.w,
-                  height: 55.h,
+                selectedIcon: AppSvgIcon(
+                  assetName: ImageManager.fillFavorite,
+                  size: 55.w,
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: NavigationDestination(
-                icon: SvgPicture.asset(
-                  ImageManager.menuIcon,
-                  width: 55.w,
-                  height: 55.h,
-                ),
-                label: '',
               ),
             ),
           ],

@@ -15,7 +15,7 @@ class CatgoryWidget extends StatelessWidget {
         height: 118.h,
         width: 164.w,
         child: Card(
-          color: Colors.white,
+          color: Theme.of(context).cardTheme.color,
           borderOnForeground: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.circular(15),
@@ -80,7 +80,7 @@ class CatgoryBrandsWidget extends StatelessWidget {
             height: 118.h,
             width: 164.w,
             child: Card(
-              color: Colors.white,
+              color: Theme.of(context).cardTheme.color,
               borderOnForeground: true,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadiusGeometry.circular(15),

@@ -118,9 +118,16 @@ class Approuter {
       case catgroyProduct:
         final catgroy = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (_) =>
-                sl<CatgroyProductCubit>()..getCatgroyPRoduct(name: catgroy),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    sl<CatgroyProductCubit>()..getCatgroyPRoduct(name: catgroy),
+              ),
+              BlocProvider(create: (_) => sl<getFavoriteCubit>()..getfav()),
+              BlocProvider(create: (_) => sl<cartCubit>()..getCart()),
+            ],
+
             child: CatgoryProduct(catgroyName: catgroy),
           ),
           settings: settings,
@@ -128,7 +135,17 @@ class Approuter {
       case product:
         final id = settings.arguments as dynamic;
         return MaterialPageRoute(
-          builder: (_) => const ProductPage(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => sl<ProductCubit>()..getAllProduct(),
+              ),
+              BlocProvider(create: (_) => sl<getFavoriteCubit>()..getfav()),
+              BlocProvider(create: (_) => sl<cartCubit>()..getCart()),
+            ],
+
+            child: const ProductPage(),
+          ),
           settings: settings,
         );
       case emptyCart:
@@ -156,8 +173,14 @@ class Approuter {
       case details:
         final id = settings.arguments as dynamic;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => sl<DetailsCubit>()..getDatils(id: id),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<cartCubit>()..getCart()),
+              BlocProvider(
+                create: (context) => sl<DetailsCubit>()..getDatils(id: id),
+              ),
+            ],
+
             child: ProductDetailsPage(id: id),
           ),
           settings: settings,
@@ -172,9 +195,16 @@ class Approuter {
       case brandProduct:
         final brands = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (_) =>
-                sl<BrandProdctCubit>()..getBrandPRoduct(name: brands),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    sl<BrandProdctCubit>()..getBrandPRoduct(name: brands),
+              ),
+              BlocProvider(create: (_) => sl<getFavoriteCubit>()..getfav()),
+              BlocProvider(create: (_) => sl<cartCubit>()..getCart()),
+            ],
+
             child: BrandProduct(brandName: brands),
           ),
           settings: settings,
@@ -183,9 +213,12 @@ class Approuter {
       case search:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => BlocProvider(
-            create: (_) => sl<SearchCubit>(),
-
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<SearchCubit>()),
+              BlocProvider(create: (_) => sl<getFavoriteCubit>()..getfav()),
+              BlocProvider(create: (_) => sl<cartCubit>()..getCart()),
+            ],
             child: SearchPage(),
           ),
         );

@@ -1,12 +1,14 @@
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_state.dart';
+import 'package:app/Features/Cart/Persention/widgets/custom_text_button.dart';
 import 'package:app/core/theme/colors.dart';
 import 'package:app/core/widgets/cart_shimmer.dart';
 import 'package:app/core/widgets/custom_error_widget.dart';
+import 'package:dartz/dartz.dart' as product;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:app/Features/Home/persention/view/widget/add_catgory_card.dart';
+import 'package:app/Features/Home/persention/view/widget/card_cart.dart';
 import 'package:app/Features/Home/persention/view/widget/custom_search_textfield.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/styles.dart';
@@ -41,7 +43,10 @@ class CartPageBody extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       children: [
-                        Text('Phones', style: AppTextSyles.textpopns20color),
+                        Text(
+                          'Cart',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         SizedBox(height: 4.h),
                       ],
                     ),
@@ -65,38 +70,53 @@ class CartPageBody extends StatelessWidget {
                           (p) => p.id == cart.id,
                         );
                         return CartAddedWidget(
-                          button: SizedBox(
-                            width: 200.w,
-                            height: 38.h,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                fixedSize: Size(10, 7),
+                          button: BlocBuilder<cartCubit, CartState>(
+                            builder: (context, state) {
+                              final isCart = context.watch<cartCubit>().isCart(
+                                cart.id,
+                              );
+                              return SizedBox(
+                                width: 124.w,
+                                height: 38.h,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    fixedSize: Size(10, 7),
 
-                                side: BorderSide(
-                                  color: Constants.Textfeildborder,
+                                    side: isCart
+                                        ? BorderSide(
+                                            color: Constants.Textfeildborder,
+                                          )
+                                        : BorderSide(
+                                            color: Constants.Textfeildborder,
+                                          ),
+                                  ),
+                                  onPressed: () {
+                                    if (isCart) {
+                                      context.read<cartCubit>().DeleteCart(
+                                        name: cart.id,
+                                      );
+                                    }
+                                    context.read<cartCubit>().AddCart(
+                                      name: cart.id,
+                                    );
+                                  },
+                                  child: isCart
+                                      ? SvgPicture.asset(
+                                          ImageManager.basketIcon,
+                                        )
+                                      : Text(
+                                          'Add',
+                                          style: AppTextSyles.textpopns14bcolor,
+                                        ),
                                 ),
-                              ),
-                              onPressed: () {
-                                if (isAdded) {
-                                  context.read<cartCubit>().DeleteCart(
-                                    name: cart.id,
-                                  );
-                                } else {
-                                  context.read<cartCubit>().AddCart(
-                                    name: cart.id,
-                                  );
-                                }
-                              },
-                              child: isAdded
-                                  ? SvgPicture.asset(ImageManager.basketIcon)
-                                  : Text(
-                                      'Add',
-                                      style: AppTextSyles.textpopns14bcolor,
-                                    ),
-                            ),
+                              );
+                            },
                           ),
                           iamge: cart.images[0],
                           text: cart.title,
+                          rating: cart.rating,
+                          timeOut: cart.discountPercentage,
+                          price: cart.price,
                         );
                       },
                     ),

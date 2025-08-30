@@ -1,3 +1,4 @@
+import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,11 +36,7 @@ class CustomTextFeild extends StatelessWidget {
             child: SizedBox(
               height: 16,
               width: 16,
-              child: SvgPicture.asset(
-                assetImage,
-                height: height,
-                width: wigeth,
-              ),
+              child: AppSvgIcon(assetName: assetImage, size: height),
             ),
           ),
           prefixIconConstraints: BoxConstraints(minWidth: 25, minHeight: 25),
@@ -95,17 +92,13 @@ class CustomTextPhoneFeild extends StatelessWidget {
               SizedBox(
                 width: wigeth,
                 height: height,
-                child: SvgPicture.asset(
-                  assetImage,
-                  height: height,
-                  width: wigeth,
-                ),
+                child: AppSvgIcon(assetName: assetImage, size: height),
               ),
               SizedBox(width: 3),
               SizedBox(
                 width: wigeth,
                 height: height,
-                child: SvgPicture.asset(SecassetImage),
+                child: AppSvgIcon(assetName: SecassetImage),
               ),
             ],
           ),

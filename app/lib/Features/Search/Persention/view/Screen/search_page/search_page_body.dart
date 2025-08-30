@@ -1,5 +1,7 @@
+import 'package:app/Features/Cart/Persention/widgets/custom_text_button.dart';
 import 'package:app/Features/Favorite/Persention/View/widget/fav_icon.dart';
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubit.dart';
+import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_state.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
@@ -44,8 +46,6 @@ class _SearchPageBodyState extends State<SearchPageBody> {
                 wigeth: 35.w,
                 height: 35.h,
               ),
-              SizedBox(height: 15.h),
-              RowSearch(text: 'Popular Search', image: ImageManager.arrowDown),
             ],
           ),
         ),
@@ -68,67 +68,20 @@ class _SearchPageBodyState extends State<SearchPageBody> {
                   delegate: SliverChildBuilderDelegate(
                     childCount: state.product.list.length,
                     (context, index) {
-                      bool isFAv = false;
                       final product = state.product.list[index];
-                      isFAv = state.product.list!.any(
-                        (p) => p.id == product.id,
-                      );
-                      return cardAddProduct(
-                        button: SizedBox(
-                          width: 124.w,
-                          height: 38.h,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              fixedSize: Size(10, 7),
 
-                              side: BorderSide(
-                                color: Constants.Textfeildborder,
-                              ),
-                            ),
-                            onPressed: () {
-                              context.read<cartCubit>().AddCart(
-                                name: product.id,
-                              );
-                            },
-                            child: Text(
-                              'Add',
-                              style: AppTextSyles.textpopns14bcolor,
-                            ),
-                          ),
-                        ),
+                      //  state.product.list!.any(;
+                      //   (p) => p.id == product.id,
+                      // );
+                      return cardAddProduct(
+                        button: CustomTextButton(id: product.id),
                         onTap: () {},
+                        rating: product.rating,
                         title: product.title,
                         realImage: product.images[0],
                         price: product.price,
 
-                        image: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isFAv = !isFAv;
-                              isFAv = true;
-                            });
-                            if (isFAv) {
-                              sl<getFavoriteCubit>().AddFAvoriete(
-                                name: product.id,
-                              );
-                            } else {
-                              sl<getFavoriteCubit>().DeleteFAvoriete(
-                                name: product.id,
-                              );
-                            }
-                          },
-                          icon: isFAv
-                              ? SvgPicture.asset(
-                                  ImageManager.heartIcon,
-                                  height: 24.h,
-                                  width: 24.w,
-                                )
-                              : SvgPicture.asset(
-                                  ImageManager.fillHeart,
-                                  height: 24.h,
-                                  width: 24.w,
-                                ),
-                        ),
+                        image: FavroiteIcon(id: product.id),
                       );
                     },
                   ),

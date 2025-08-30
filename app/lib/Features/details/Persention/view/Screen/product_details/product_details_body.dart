@@ -1,6 +1,8 @@
+import 'package:app/Features/Cart/Persention/widgets/custom_text_button.dart';
 import 'package:app/Features/details/Persention/vm/details_cubit.dart';
 import 'package:app/Features/details/Persention/vm/details_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
+import 'package:app/Features/details/Persention/widget/custom_cart_button.dart';
 import 'package:app/core/services/services_locator.dart';
 import 'package:app/core/widgets/details_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +55,11 @@ class ProductDetailsBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(width: 15.w),
-                          Text(
-                            product.title,
-                            style: AppTextSyles.textpopns20color,
+                          Flexible(
+                            child: Text(
+                              product.title,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
                           ),
                         ],
                       ),
@@ -66,9 +70,7 @@ class ProductDetailsBody extends StatelessWidget {
                           SizedBox(width: 15.w),
                           Text(
                             product.title,
-                            style: AppTextSyles.textpopns16color.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ],
                       ),
@@ -87,36 +89,10 @@ class ProductDetailsBody extends StatelessWidget {
                           children: [
                             Text(
                               '   Price\n${product.price}',
-                              style: AppTextSyles.textpopns18color,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             SizedBox(width: 3.w),
-                            SizedBox(
-                              width: 232.w,
-                              height: 48.h,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  fixedSize: Size(10, 7),
-                                  side: BorderSide(
-                                    color: Constants.Textfeildborder,
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageManager.cartIconOnly,
-                                      width: 28.w,
-                                      height: 28.h,
-                                    ),
-                                    Text(
-                                      'Add To Cart',
-                                      style: AppTextSyles.textpopns14bcolor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            CustomCartButton(id: product.id),
                           ],
                         ),
                       ),

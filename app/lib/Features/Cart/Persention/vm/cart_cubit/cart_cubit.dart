@@ -8,16 +8,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class cartCubit extends Cubit<CartState> {
   cartCubit(super.initialState, this.cartRepo);
-  final List<ProductListItem> favoriets = [];
+  final List<dynamic> cart = [];
   final CartRepo cartRepo;
   getCart({id}) async {
     emit(CartLoading());
     final response = await cartRepo.getCart(name: id);
 
-    response.fold(
-      ((errorMessga) => emit(CartError(message: errorMessga))),
-      (suecss) => emit(CArtSuecss(product: suecss)),
-    );
+    response.fold(((errorMessga) => emit(CartError(message: errorMessga))), (
+      suecss,
+    ) {
+      cart.clear();
+      cart.addAll(suecss.list.map((item) => item.id));
+      emit(CArtSuecss(product: suecss));
+    });
   }
 
   DeleteCart({name}) async {
@@ -26,6 +29,7 @@ class cartCubit extends Cubit<CartState> {
     response.fold(((errorMessga) => emit(CartError(message: errorMessga))), (
       suecss,
     ) async {
+      cart.remove(name);
       await getCart();
     });
   }
@@ -36,7 +40,10 @@ class cartCubit extends Cubit<CartState> {
     response.fold(((errorMessga) => emit(CartError(message: errorMessga))), (
       suecss,
     ) async {
+      cart.add(name);
       await getCart();
     });
   }
+
+  bool isCart(dynamic id) => cart.contains(id);
 }

@@ -1,3 +1,4 @@
+import 'package:app/Features/Cart/Persention/widgets/custom_text_button.dart';
 import 'package:app/Features/Favorite/Persention/View/widget/fav_icon.dart';
 import 'package:app/Features/Home/persention/view/widget/card_widget.dart';
 import 'package:app/Features/Home/persention/view/widget/custom_search_textfield.dart';
@@ -26,10 +27,29 @@ import 'package:app/core/constant/image_manager/image_manager.dart';
 import 'package:app/core/theme/colors.dart';
 import 'package:app/core/theme/styles.dart';
 
-class BrandProductBody extends StatelessWidget {
+class BrandProductBody extends StatefulWidget {
   BrandProductBody({super.key});
-  final allProduct = sl<ProductCubit>();
+
   @override
+  State<BrandProductBody> createState() => _BrandProductBodyState();
+}
+
+class _BrandProductBodyState extends State<BrandProductBody> {
+  final allProduct = sl<ProductCubit>();
+  bool isLoadMore = false;
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        context.read<ProductCubit>().getAllProduct(isLoadMore: true);
+      }
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
@@ -40,6 +60,7 @@ class BrandProductBody extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(top: 14.h),
         child: CustomScrollView(
+          controller: scrollController,
           scrollDirection: Axis.vertical,
           slivers: [
             SliverToBoxAdapter(
@@ -78,8 +99,8 @@ class BrandProductBody extends StatelessWidget {
                     onNotification: (ScrollNotification scrollInfo) {
                       if (scrollInfo.metrics.pixels ==
                           scrollInfo.metrics.maxScrollExtent) {
-                        context.read<ProductCubit>().getAllProduct(
-                          isLoadMore: true,
+                        context.read<BrandProdctCubit>().getBrandPRoduct(
+                          isLoadMOre: true,
                         );
                       }
                       return true;
@@ -95,26 +116,7 @@ class BrandProductBody extends StatelessWidget {
                             (p) => p.id == product.id,
                           );
                           return cardAddProduct(
-                            button: SizedBox(
-                              width: 124.w,
-                              height: 38.h,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  fixedSize: Size(10, 7),
-
-                                  side: BorderSide(
-                                    color: Constants.Textfeildborder,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  sl<cartCubit>().AddCart(name: product.id);
-                                },
-                                child: Text(
-                                  'Add',
-                                  style: AppTextSyles.textpopns14bcolor,
-                                ),
-                              ),
-                            ),
+                            button: CustomTextButton(id: product.id),
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
@@ -122,11 +124,12 @@ class BrandProductBody extends StatelessWidget {
                                 arguments: product.id,
                               );
                             },
+                            rating: product.rating,
                             title: product.title,
                             realImage: product.images[0],
                             price: product.price,
 
-                            image: FavroiteIcon(name: product.id, isFAv: isFAv),
+                            image: FavroiteIcon(id: product.id),
                           );
                         },
                       ),
@@ -157,5 +160,12 @@ class BrandProductBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }

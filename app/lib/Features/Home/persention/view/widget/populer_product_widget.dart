@@ -29,6 +29,7 @@ class PopulerProductWidget extends StatelessWidget {
                 price: products.price,
                 title: products.title,
                 realImage: products.images[0],
+                rating: products.rating,
                 onTap: () {},
               );
             },
