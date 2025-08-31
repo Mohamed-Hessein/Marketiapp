@@ -2,7 +2,7 @@
 
 **Author:** Mohamed Hussein  
 
-![Cover](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assets/cover.png)
+![Cover]([https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assets/cover.png](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assets%2FMarktia.jpg))
 
 MarketiApp is a modern shopping application built using Flutter. It integrates with APIs to provide dynamic data and allows users to browse products, manage favorites, add items to the cart, view details, and manage their profile.  
 
