@@ -4,7 +4,7 @@
 
 <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assets/Marktia.jpg" alt="Cover" width="600"/>
 
-MarketiApp is a modern shopping application built using Flutter. It integrates with APIs to provide dynamic data and allows users to browse products, manage favorites, add items to the cart, view details, and manage their profile.  
+MarketiApp is a modern shopping application built using Flutter. It integrates with **external APIs** to fetch products, categories, and user data dynamically. Users can browse products, manage favorites, add items to the cart, view details, and manage their profile.  
 
 ## Features
 
@@ -37,9 +37,29 @@ MarketiApp is a modern shopping application built using Flutter. It integrates w
 ### Details
 <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/details.jpg" alt="details" width="300"/>
 
-## API Integration
+## Packages
 
-MarketiApp uses API calls to fetch products, categories, and user data dynamically. This ensures that users always have access to the latest information.
+The project uses the following Flutter packages to enhance functionality:
+
+- `cupertino_icons: ^1.0.8`
+- `iconly: ^1.0.1`
+- `animate_do: ^4.2.0`
+- `smooth_page_indicator: ^1.2.1`
+- `pin_code_fields: ^8.0.1`
+- `flutter_svg: ^2.2.0`
+- `flutter_bloc: ^9.1.1`
+- `dio: ^5.9.0`
+- `shared_preferences: ^2.5.3`
+- `jwt_decoder: ^2.0.1`
+- `dartz: ^0.10.1`
+- `flutter_screenutil: ^5.9.3`
+- `animated_bottom_navigation_bar: ^1.4.0`
+- `equatable: ^2.0.7`
+- `flutter_pagewise: ^2.0.4`
+- `pagify: ^0.1.0`
+- `get_it: ^8.2.0`
+- `image_picker: ^1.2.0`
+- `shimmer: ^3.0.0`
 
 ## Demo Video
 
