@@ -1,41 +1,41 @@
 # MarketiApp
 
-**Author:** Mohamed Hussein  
+**Author:** Mohamed Hussein
 
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assets/Marktia.jpg" alt="Cover" width="600"/>
+![Cover](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assets/Marktia.jpg)
 
-MarketiApp is a modern shopping application built using Flutter. It integrates with **external APIs** to fetch products, categories, and user data dynamically. Users can browse products, manage favorites, add items to the cart, view details, and manage their profile.  
+MarketiApp is a modern shopping application built using Flutter. It integrates with external APIs to fetch products, categories, and user data dynamically. Users can browse products, manage favorites, add items to the cart, view details, and manage their profile.
 
 ## Features
 
 ### Home (Dark)
-[Link to Home](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FHome)  
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/home_dark.jpg" alt="home_dark" width="300"/>
+[Link to Home](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FHome)
+![home_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/home_dark.jpg)
 
 ### Favorites (Dark)
-[Link to Favorites](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FFavorite)  
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/favoirtes.jpg" alt="favorites" width="300"/>
+[Link to Favorites](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FFavorite)
+![favoirtes.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/favoirtes.jpg)
 
 ### Cart
-[Link to Cart](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FCart)  
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart.jpg" alt="cart" width="300"/>  
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart_light.jpg" alt="cart_light" width="300"/>
+[Link to Cart](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FCart)
+![cart.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart.jpg)
+![cart_light.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart_light.jpg)
 
 ### Category
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/catgory.jpg" alt="category" width="300"/>
+![catgory.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/catgory.jpg)
 
 ### Product (Dark)
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/product_dark.jpg" alt="product_dark" width="300"/>
+![product_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/product_dark.jpg)
 
 ### Profile (Light)
-[Link to Profile](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FProfile)  
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile.jpg" alt="profile" width="300"/>
+[Link to Profile](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FProfile)
+![profile.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile.jpg)
 
 ### Profile (Dark)
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile_dark.jpg" alt="profile_dark" width="300"/>
+![profile_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile_dark.jpg)
 
 ### Details
-<img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/details.jpg" alt="details" width="300"/>
+![details.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/details.jpg)
 
 ## Packages
 
@@ -63,7 +63,7 @@ The project uses the following Flutter packages to enhance functionality:
 
 ## Demo Video
 
-A demo video will be added soon to showcase the app in action.  
+A demo video will be added soon to showcase the app in action.
 
 ---
 
