@@ -27,10 +27,10 @@ This project gave me practical hands-on experience in:
 |-------------|-----------------|------|------------|----------|----------------|---------------|--------------|---------|
 | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/home_dark.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/favoirtes.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart_light.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/catgory.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/product_dark.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile_dark.jpg" width="100"/> | <img src="https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/details.jpg" width="100"/> |
 
-## Demo Video
+## Installing
 
-A demo video will be added soon to showcase the app in action.
+To run this project locally, follow these steps:
 
----
-
-**Mohamed Hussein**
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/Mohamed-Hessein/Marketiapp.git
