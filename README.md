@@ -8,34 +8,16 @@ MarketiApp is a modern shopping application built using Flutter. It integrates w
 
 ## Features
 
-### Home (Dark)
-[Link to Home](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FHome)
-![home_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/home_dark.jpg)
-
-### Favorites (Dark)
-[Link to Favorites](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FFavorite)
-![favoirtes.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/favoirtes.jpg)
-
-### Cart
-[Link to Cart](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FCart)
-![cart.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart.jpg)
-![cart_light.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart_light.jpg)
-
-### Category
-![catgory.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/catgory.jpg)
-
-### Product (Dark)
-![product_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/product_dark.jpg)
-
-### Profile (Light)
-[Link to Profile](https://github.com/Mohamed-Hessein/Marketiapp/tree/main/app%2Flib%2FFeatures%2FProfile)
-![profile.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile.jpg)
-
-### Profile (Dark)
-![profile_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile_dark.jpg)
-
-### Details
-![details.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/details.jpg)
+| Feature       | Description                                                                 | Screenshot                                                                 |
+|---------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| **Home (Dark)**    | Main screen displaying featured products and categories.                   | ![home_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/home_dark.jpg) |
+| **Favorites (Dark)** | Allows users to view and manage their favorite products.                 | ![favoirtes.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/favoirtes.jpg) |
+| **Cart**          | Users can view and manage products added to their cart.                     | ![cart.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/cart.jpg) |
+| **Category**      | Displays product categories for easy navigation.                            | ![catgory.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/catgory.jpg) |
+| **Product (Dark)** | Detailed view of a selected product with options to add to cart or favorites. | ![product_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/product_dark.jpg) |
+| **Profile (Light)** | User profile screen displaying personal information and settings.         | ![profile.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile.jpg) |
+| **Profile (Dark)**  | Dark mode version of the user profile screen.                             | ![profile_dark.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/profile_dark.jpg) |
+| **Details**        | Detailed information about a selected product.                             | ![details.jpg](https://github.com/Mohamed-Hessein/Marketiapp/blob/main/assetsM/details.jpg) |
 
 ## Packages
 
