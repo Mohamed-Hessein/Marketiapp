@@ -1,3 +1,4 @@
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -37,10 +38,7 @@ class RateWidget extends StatelessWidget {
           SvgPicture.asset(ImageManager.vectorStar, height: 15.h, width: 15.w),
           SizedBox(width: 5.w),
           Flexible(
-            child: Text(
-              '($rate)',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
+            child: Text('($rate)', style: context.theme.textTheme.labelSmall),
           ),
         ],
       ),

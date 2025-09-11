@@ -1,3 +1,4 @@
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:flutter/material.dart';
 import 'package:app/core/theme/styles.dart';
 
@@ -18,7 +19,7 @@ class RowViewAll extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(text, style: Theme.of(context).textTheme.titleMedium),
+          Text(text, style: context.theme.textTheme.titleMedium),
 
           GestureDetector(
             onTap: onTap,

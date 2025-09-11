@@ -7,6 +7,7 @@ import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_stat
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/Home/persention/view_model/product_state.dart';
 import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/services/services_locator.dart';
 import 'package:app/core/theme/colors.dart';
 import 'package:app/core/widgets/custom_error_widget.dart';
@@ -64,7 +65,7 @@ class _FavoritePageBodyState extends State<FavoritePageBody> {
                       children: [
                         Text(
                           'Favorites',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: context.theme.textTheme.titleMedium,
                         ),
                       ],
                     ),

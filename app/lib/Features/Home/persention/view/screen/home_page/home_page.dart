@@ -1,6 +1,7 @@
 import 'package:app/Features/Profile/Persention/vm/image_cubit.dart';
 import 'package:app/Features/Profile/Persention/vm/image_state.dart';
 import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             if (state is ProfileStateSuecss) {
               return Text(
                 "Hi, ${state.product.name}",
-                style: Theme.of(context).appBarTheme.toolbarTextStyle,
+                style: context.theme.appBarTheme.toolbarTextStyle,
               );
             } else {
               return SizedBox.shrink();

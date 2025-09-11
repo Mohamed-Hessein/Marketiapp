@@ -3,6 +3,7 @@ import 'package:app/Features/details/Persention/vm/details_cubit.dart';
 import 'package:app/Features/details/Persention/vm/details_state.dart';
 import 'package:app/Features/Home/persention/view_model/product_cubit.dart';
 import 'package:app/Features/details/Persention/widget/custom_cart_button.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/services/services_locator.dart';
 import 'package:app/core/widgets/details_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class ProductDetailsBody extends StatelessWidget {
                           Flexible(
                             child: Text(
                               product.title,
-                              style: Theme.of(context).textTheme.titleSmall,
+                              style: context.theme.textTheme.titleSmall,
                             ),
                           ),
                         ],
@@ -70,7 +71,7 @@ class ProductDetailsBody extends StatelessWidget {
                           SizedBox(width: 15.w),
                           Text(
                             product.title,
-                            style: Theme.of(context).textTheme.titleLarge,
+                            style: context.theme.textTheme.titleLarge,
                           ),
                         ],
                       ),
@@ -89,7 +90,7 @@ class ProductDetailsBody extends StatelessWidget {
                           children: [
                             Text(
                               '   Price\n${product.price}',
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: context.theme.textTheme.bodyMedium,
                             ),
                             SizedBox(width: 3.w),
                             CustomCartButton(id: product.id),

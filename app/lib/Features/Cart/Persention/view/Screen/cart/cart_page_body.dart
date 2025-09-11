@@ -1,6 +1,7 @@
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_state.dart';
 import 'package:app/Features/Cart/Persention/widgets/custom_text_button.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/theme/colors.dart';
 import 'package:app/core/widgets/cart_shimmer.dart';
 import 'package:app/core/widgets/custom_error_widget.dart';
@@ -45,7 +46,7 @@ class CartPageBody extends StatelessWidget {
                       children: [
                         Text(
                           'Cart',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: context.theme.textTheme.titleMedium,
                         ),
                         SizedBox(height: 4.h),
                       ],

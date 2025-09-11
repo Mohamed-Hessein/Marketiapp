@@ -1,3 +1,5 @@
+import 'package:app/core/extention/mediaquery_extn.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +34,7 @@ class cardProduct extends StatelessWidget {
             height: 190.h,
             width: 180.w,
             child: Card(
-              color: Theme.of(context).cardTheme.color,
+              color: context.theme.cardTheme.color,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadiusGeometry.circular(14),
               ),
@@ -88,8 +90,8 @@ class cardProduct extends StatelessWidget {
           ),
 
           Positioned(
-            right: MediaQuery.of(context).size.height * .022,
-            top: MediaQuery.of(context).size.height * .0165,
+            right: context.screenHeight * .022,
+            top: context.screenHeight * .0165,
             child: AppSvgIcon(assetName: ImageManager.heartIcon, size: 24.h),
           ),
         ],
@@ -128,7 +130,7 @@ class cardAddProduct extends StatelessWidget {
               height: 270.h,
               width: 220.w,
               child: Card(
-                color: Theme.of(context).cardTheme.color,
+                color: context.theme.cardTheme.color,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(14),
                 ),
@@ -158,7 +160,7 @@ class cardAddProduct extends StatelessWidget {
                           children: [
                             Text(
                               "$price",
-                              style: Theme.of(context).textTheme.labelSmall,
+                              style: context.theme.textTheme.labelSmall,
                             ),
                             Spacer(flex: 2),
                             AppSvgIcon(
@@ -168,7 +170,7 @@ class cardAddProduct extends StatelessWidget {
                             SizedBox(width: 1.w),
                             Text(
                               '$rating',
-                              style: Theme.of(context).textTheme.labelSmall,
+                              style: context.theme.textTheme.labelSmall,
                             ),
                           ],
                         ),
@@ -181,7 +183,7 @@ class cardAddProduct extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 title,
-                                style: Theme.of(context).textTheme.labelSmall,
+                                style: context.theme.textTheme.labelSmall,
                               ),
                             ),
                           ],
@@ -194,13 +196,13 @@ class cardAddProduct extends StatelessWidget {
             ),
 
             Positioned(
-              right: MediaQuery.of(context).size.height * .028,
-              top: MediaQuery.of(context).size.height * .0165,
+              right: context.screenHeight * .028,
+              top: context.screenHeight * .0165,
               child: image,
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * .015,
-              left: MediaQuery.of(context).size.height * .050,
+              bottom: context.screenHeight * .015,
+              left: context.screenHeight * .050,
               child: button,
             ),
           ],

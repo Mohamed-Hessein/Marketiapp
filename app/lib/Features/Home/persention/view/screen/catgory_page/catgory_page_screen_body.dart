@@ -1,4 +1,5 @@
 import 'package:app/Features/Home/persention/view/widget/Grid_view_product.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/widgets/brands_shimmer_Grid_view.dart';
 import 'package:app/core/widgets/catgroy_shimmr_girdview.dart';
 import 'package:app/core/widgets/custom_error_widget.dart';
@@ -43,7 +44,7 @@ class CatgoryPageScreenBody extends StatelessWidget {
                     children: [
                       Text(
                         'Catgoryies',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: context.theme.textTheme.titleMedium,
                       ),
                       SizedBox(height: 4.h),
                     ],

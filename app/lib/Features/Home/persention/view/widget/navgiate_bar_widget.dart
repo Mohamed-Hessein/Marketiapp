@@ -1,5 +1,6 @@
 import 'package:app/Features/Cart/Persention/vm/cart_cubit/cart_cubit.dart';
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubit.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/services/services_locator.dart';
 import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _NavgiateBarWidgetState extends State<NavgiateBarWidget> {
           selectedIndex: index,
           onDestinationSelected: (index) => setState(() => this.index = index),
 
-          backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor,
+          backgroundColor: context.theme.navigationBarTheme.backgroundColor,
           height: 66,
 
           destinations: [

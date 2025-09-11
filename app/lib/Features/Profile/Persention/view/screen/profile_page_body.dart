@@ -5,6 +5,8 @@ import 'package:app/Features/Profile/Persention/vm/image_state.dart';
 import 'package:app/Features/Profile/Persention/view/widgets/Row_options_profile.dart';
 import 'package:app/core/Router/appRouter.dart';
 import 'package:app/core/constant/image_manager/image_manager.dart';
+import 'package:app/core/extention/mediaquery_extn.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/network/cachehelper.dart';
 import 'package:app/core/network/endpoints.dart';
 import 'package:app/core/services/services_locator.dart';
@@ -51,10 +53,8 @@ class ProfilePageBody extends StatelessWidget {
                               bloc: sl<ImageCubit>(),
                               builder: (context, state) {
                                 return Positioned(
-                                  top:
-                                      MediaQuery.of(context).size.height * .063,
-                                  right:
-                                      MediaQuery.of(context).size.height * .13,
+                                  top: context.screenHeight * .063,
+                                  right: context.screenHeight * .13,
                                   child: SizedBox(
                                     height: 120.h,
                                     width: 120.h,
@@ -82,8 +82,8 @@ class ProfilePageBody extends StatelessWidget {
                             ),
 
                             Positioned(
-                              top: MediaQuery.of(context).size.height * .16,
-                              right: MediaQuery.of(context).size.height * .13,
+                              top: context.screenHeight * .16,
+                              right: context.screenHeight * .13,
                               child: GestureDetector(
                                 onTap: () {
                                   ImagePicker()
@@ -106,11 +106,11 @@ class ProfilePageBody extends StatelessWidget {
                       ),
                       Text(
                         profile.name,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: context.theme.textTheme.bodyMedium,
                       ),
                       Text(
                         profile.email,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: context.theme.textTheme.bodySmall,
                       ),
 
                       SizedBox(height: 25.h),

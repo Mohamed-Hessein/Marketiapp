@@ -1,3 +1,4 @@
+import 'package:app/core/extention/mediaquery_extn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:app/Features/OnBording/Persention/view/screens/onbording2.dart';
@@ -13,7 +14,7 @@ class onbordingpage extends StatelessWidget {
   Widget build(BuildContext context) {
     final PageController controller = PageController();
 
-    final heigth = MediaQuery.of(context).size.height;
+    final heigth = context.screenHeight;
 
     return Scaffold(
       body: Column(

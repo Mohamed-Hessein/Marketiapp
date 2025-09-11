@@ -7,6 +7,7 @@ import 'package:app/Features/details/Persention/vm/details_cubit.dart';
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_cubit.dart';
 import 'package:app/Features/Favorite/Persention/vm/favorite_cubit/favorite_state.dart';
 import 'package:app/core/Router/appRouter.dart';
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/services/services_locator.dart';
 import 'package:app/core/theme/colors.dart';
 import 'package:app/core/widgets/custom_error_widget.dart';
@@ -78,7 +79,7 @@ class _ProductPageBodyState extends State<ProductPageBody> {
                       children: [
                         Text(
                           'All Product',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: context.theme.textTheme.titleMedium,
                         ),
                       ],
                     ),

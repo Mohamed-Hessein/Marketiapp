@@ -1,3 +1,4 @@
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -133,7 +134,7 @@ class CartAddedWidget extends StatelessWidget {
         children: [
           Card(
             elevation: .5,
-            color: Theme.of(context).cardTheme.color,
+            color: context.theme.cardTheme.color,
             child: Row(
               children: [
                 Image.network(iamge, height: 120.h, width: 75.w),
@@ -155,7 +156,7 @@ class CartAddedWidget extends StatelessWidget {
                     Flexible(
                       child: Text(
                         '84 Diapers',
-                        style: Theme.of(context).textTheme.labelSmall,
+                        style: context.theme.textTheme.labelSmall,
                       ),
                     ),
                     SizedBox(height: 8.h),
@@ -175,7 +176,7 @@ class CartAddedWidget extends StatelessWidget {
                         Text(
                           overflow: TextOverflow.ellipsis,
                           'Price: $price EGP',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: context.theme.textTheme.bodySmall,
                         ),
                         SizedBox(width: 35.w),
                         AppSvgIcon(
@@ -185,7 +186,7 @@ class CartAddedWidget extends StatelessWidget {
                         SizedBox(width: 1.w),
                         Text(
                           '$rating ',
-                          style: Theme.of(context).textTheme.labelSmall,
+                          style: context.theme.textTheme.labelSmall,
                         ),
                       ],
                     ),

@@ -1,3 +1,4 @@
+import 'package:app/core/extention/theme_extn.dart';
 import 'package:app/core/widgets/svg_theme_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ class _SelectSizeState extends State<SelectSize> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(width: 15.w),
-            Text("Select Size", style: Theme.of(context).textTheme.titleLarge),
+            Text("Select Size", style: context.theme.textTheme.titleLarge),
           ],
         ),
         Row(
@@ -62,8 +63,8 @@ class _SelectSizeState extends State<SelectSize> {
                               Text(
                                 '2',
                                 style: isClicked
-                                    ? Theme.of(context).textTheme.labelLarge
-                                    : Theme.of(context).textTheme.labelLarge,
+                                    ? context.theme.textTheme.labelLarge
+                                    : context.theme.textTheme.labelLarge,
                               ),
 
                               if (isClicked)
